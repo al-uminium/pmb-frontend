@@ -2,8 +2,9 @@
 
 <form [formGroup]="form" action="" class="ml-2 pt-10" (ngSubmit)="onSubmit()">
   <div class="grid w-2/5">
+    <app-dropdown [values]="defCurrencies" value="Select your default currency" (valueChange)="setCurrency($event)"></app-dropdown>
     <label 
-      class="font-roboto font-bold text-slate-200" 
+      class="font-roboto font-bold text-slate-200 pt-2" 
       for="expenditure-name">
       Name your Expenditure:
     </label>
@@ -25,17 +26,19 @@
         <button class="text-sm font-light pl-1" type="button" (click)="addUser()">Add more users</button>
       </div>
     </div>
-   <div formArrayName="usernames" class="grid grid-cols-2 pt-5">
+   <div formArrayName="usernames" class="pt-5 border-b">
     @for (user of usernames.controls; track $index) {
-      <input 
-        type="text" 
-        name="users" 
-        id="user-{{ $index }}"
-        class="bg-inherit border-b font-roboto pt-2"
-        placeholder="Enter a username here..."
-        [formControlName]="$index"
-      >
-      <ng-icon [id]="$index" name="heroXCircle"></ng-icon>
+      <label class="flex justify-between" for="user-{{ $index }}">
+        <input 
+          type="text" 
+          name="users" 
+          id="user-{{ $index }}"
+          class="bg-inherit w-11/12 font-roboto self-center focus:outline-slate-100"
+          placeholder="Enter a username here..."
+          [formControlName]="$index"
+        >
+        <ng-icon class="self-center w-1/12 cursor-pointer" [id]="$index" (click)="deleteUser($index)" name="heroXMark"></ng-icon>
+      </label>
     }
    </div>
   </div>

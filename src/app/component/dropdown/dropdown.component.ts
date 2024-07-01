@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { heroChevronDown } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [],
+  imports: [NgIconComponent],
+  providers: [provideIcons({ heroChevronDown })],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.css'
 })
@@ -15,17 +18,18 @@ export class DropdownComponent implements OnInit{
   values!: string[];
 
   @Output()
-  valueChange!: EventEmitter<string>;
+  valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   showDropdown: boolean = false;
 
   ngOnInit(): void {
-    this.valueChange = new EventEmitter<string>();
+
   }
 
   selectVal(value: string){
     this.valueChange.emit(value);
     this.value = value;
+    this.showDropdown = false;
   }
 
   toggleDropdown(): void {

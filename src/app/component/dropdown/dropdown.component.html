@@ -1,8 +1,10 @@
 <div>
-  <div (click)="toggleDropdown()">{{ value }}</div>
-  <ul>
-    @for (val of values; track $index) {
-      <li>{{ val }}</li>
-    }
-  </ul>
+  <div class="flex items-center hover:cursor-pointer" (click)="toggleDropdown()">{{ value }} <ng-icon class="ml-3" name="heroChevronDown"></ng-icon></div>
+  @if (showDropdown) {
+    <ul class="w-20">
+      @for (val of values; track $index) {
+        <li class="hover:cursor-pointer hover:bg-slate-700" (click)="selectVal(val)">{{ val }}</li>
+      }
+    </ul>
+  }
 </div>
