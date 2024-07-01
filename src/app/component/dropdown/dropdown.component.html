@@ -1,0 +1,8 @@
+<div>
+  <div (click)="toggleDropdown()">{{ value }}</div>
+  <ul>
+    @for (val of values; track $index) {
+      <li>{{ val }}</li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,44 @@
+<h1 class="text-4xl font-oswald w-2/3">Start tracking your expense journey </h1>
+
+<form [formGroup]="form" action="" class="ml-2 pt-10" (ngSubmit)="onSubmit()">
+  <div class="grid w-2/5">
+    <label 
+      class="font-roboto font-bold text-slate-200" 
+      for="expenditure-name">
+      Name your Expenditure:
+    </label>
+    <input 
+      type="text" 
+      name="expenditure-name" 
+      id="expenditure-name"
+      class="bg-inherit border-b font-roboto"
+      formControlName="expenditureName"
+    >
+  </div>
+  <div class="pt-5 grid w-2/5">
+    <div div class="flex items-center">
+      <div class="font-roboto font-normal text-slate-200">
+        Who's going to part of your spending team?
+      </div>
+      <div class="w-32 h-12 ml-5 px-2 flex items-center justify-center border border-slate-400">
+        <ng-icon name="heroUserPlus"></ng-icon>
+        <button class="text-sm font-light pl-1" type="button" (click)="addUser()">Add more users</button>
+      </div>
+    </div>
+   <div formArrayName="usernames" class="grid grid-cols-2 pt-5">
+    @for (user of usernames.controls; track $index) {
+      <input 
+        type="text" 
+        name="users" 
+        id="user-{{ $index }}"
+        class="bg-inherit border-b font-roboto pt-2"
+        placeholder="Enter a username here..."
+        [formControlName]="$index"
+      >
+      <ng-icon [id]="$index" name="heroXCircle"></ng-icon>
+    }
+   </div>
+  </div>
+  <button class="mt-5 bg-slate-900 w-40 h-12" type="submit">Create Expenditure</button>
+  
+</form>
