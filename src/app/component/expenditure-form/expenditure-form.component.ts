@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroUserPlus, heroXCircle, heroXMark } from '@ng-icons/heroicons/outline';
@@ -20,12 +20,12 @@ export class ExpenditureFormComponent implements OnInit{
   form!: FormGroup
   utilSvc: UtilService = new UtilService;
   defCurrencies: string[] = ["USD", "EUR", "GBP", "SGD"];
-  selectedCurrency!: string; 
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      expenditureName: this.fb.control<string>(''),
-      usernames: this.fb.array([this.fb.control('')])
+      expenditureName: this.fb.control<string>('', Validators.required),
+      usernames: this.fb.array([this.fb.control('', Validators.required)]),
+      selectedCurrency: this.fb.control<string>('', Validators.required)
     })
   }
 
@@ -34,7 +34,7 @@ export class ExpenditureFormComponent implements OnInit{
   }
 
   addUser() {
-    this.usernames.push(this.fb.control(''));
+    this.usernames.push(this.fb.control('', Validators.required));
   }
 
   deleteUser(index: number) {
@@ -42,16 +42,20 @@ export class ExpenditureFormComponent implements OnInit{
   }
 
   setCurrency(curr: string){
-    console.log(curr);
-    this.selectedCurrency = curr;
+    this.form.controls['selectedCurrency'].setValue(curr);
   }
 
   onSubmit(): void {
-    console.log(this.usernames.length);
+    const expenditureName = this.form.get('expenditureName')?.value;
+    const userArray = new Array;
+    const currency = this.form.get('selectedCurrency')?.value;
     for (let index = 0; index < this.usernames.length; index++) {
-      const val = this.usernames.at(index).value
-      console.log(val);
+      const val = this.usernames.at(index).value as string
+      if (val.length > 0) {
+        userArray.push(val);
+      }
     }
-    console.log(this.utilSvc.generateSecureRandomString(25));
+    console.log(expenditureName, userArray, currency);
+    // console.log(this.utilSvc.generateSecureRandomString(25));
   }
 }

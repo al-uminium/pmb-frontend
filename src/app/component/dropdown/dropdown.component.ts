@@ -12,7 +12,7 @@ import { heroChevronDown } from '@ng-icons/heroicons/outline';
 })
 export class DropdownComponent implements OnInit{
   @Input()
-  value!: string;
+  value: string = "";
 
   @Input()
   values!: string[];

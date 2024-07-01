@@ -1,8 +1,7 @@
 <h1 class="text-4xl font-oswald w-2/3">Start tracking your expense journey </h1>
 
-<form [formGroup]="form" action="" class="ml-2 pt-10" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" action="" class="ml-2 pt-10 grid gap-6" (ngSubmit)="onSubmit()">
   <div class="grid w-2/5">
-    <app-dropdown [values]="defCurrencies" value="Select your default currency" (valueChange)="setCurrency($event)"></app-dropdown>
     <label 
       class="font-roboto font-bold text-slate-200 pt-2" 
       for="expenditure-name">
@@ -16,7 +15,7 @@
       formControlName="expenditureName"
     >
   </div>
-  <div class="pt-5 grid w-2/5">
+  <div class="grid w-2/5">
     <div div class="flex items-center">
       <div class="font-roboto font-normal text-slate-200">
         Who's going to part of your spending team?
@@ -26,9 +25,9 @@
         <button class="text-sm font-light pl-1" type="button" (click)="addUser()">Add more users</button>
       </div>
     </div>
-   <div formArrayName="usernames" class="pt-5 border-b">
+   <div formArrayName="usernames">
     @for (user of usernames.controls; track $index) {
-      <label class="flex justify-between" for="user-{{ $index }}">
+      <label class="flex justify-between border-b pt-4" for="user-{{ $index }}">
         <input 
           type="text" 
           name="users" 
@@ -42,6 +41,7 @@
     }
    </div>
   </div>
-  <button class="mt-5 bg-slate-900 w-40 h-12" type="submit">Create Expenditure</button>
+  <app-dropdown [values]="defCurrencies" value="Select your currency" (valueChange)="setCurrency($event)"></app-dropdown>
+  <button [disabled]="!form.valid"  class="mt-5 bg-slate-900 w-40 h-12 disabled:bg-slate-400 disabled:text-slate-500" type="submit">Create Expenditure</button>
   
 </form>
