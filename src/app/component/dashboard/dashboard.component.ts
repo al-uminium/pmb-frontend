@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  inviteToken!: string;
 
+  private readonly actRoute = inject(ActivatedRoute);
+
+  ngOnInit(): void {
+    this.actRoute.paramMap.subscribe(params => {
+      this.inviteToken = params.get('id') as string
+      console.log(this.inviteToken);
+    });
+  }
 }

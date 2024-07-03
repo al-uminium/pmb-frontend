@@ -1,10 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroUserPlus, heroXCircle, heroXMark } from '@ng-icons/heroicons/outline';
 import { UtilService } from '../../service/util.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BackendService } from '../../service/backend.service';
+import { Expenditure } from '../../classes/expenditure';
 
 @Component({
   selector: 'app-expenditure-form',
@@ -17,8 +19,11 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 export class ExpenditureFormComponent implements OnInit{
 
   private readonly fb = inject(FormBuilder);
+  private readonly utilSvc = inject(UtilService);
+  private readonly bkendSvc = inject(BackendService);
+  private readonly router = inject(Router);
+
   form!: FormGroup
-  utilSvc: UtilService = new UtilService;
   defCurrencies: string[] = ["USD", "EUR", "GBP", "SGD"];
 
   ngOnInit(): void {
@@ -47,15 +52,15 @@ export class ExpenditureFormComponent implements OnInit{
 
   onSubmit(): void {
     const expenditureName = this.form.get('expenditureName')?.value;
-    const userArray = new Array;
+    const userArray = this.utilSvc.getUsers(this.usernames);
     const currency = this.form.get('selectedCurrency')?.value;
-    for (let index = 0; index < this.usernames.length; index++) {
-      const val = this.usernames.at(index).value as string
-      if (val.length > 0) {
-        userArray.push(val);
-      }
-    }
+    const inviteToken = this.utilSvc.generateSecureRandomString(25);
+
+    this.bkendSvc.createExpenditure(new Expenditure(expenditureName, userArray, currency, inviteToken)).subscribe({
+      next: () => this.router.navigate(['expenditure', inviteToken]),
+      complete: () => console.log(inviteToken),
+      error: (err) => console.log(err)
+    })
     console.log(expenditureName, userArray, currency);
-    // console.log(this.utilSvc.generateSecureRandomString(25));
   }
 }
