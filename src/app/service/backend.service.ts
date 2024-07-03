@@ -15,8 +15,8 @@ export class BackendService {
     return this.http.post<Expenditure>(this.postUrl+"initializeexpenditure", expenditure)
   }
 
-  getExpenditureDetails(inviteToken: string): Observable<any> {
-    return this.http.get(this.getUrl+`expenditure/${inviteToken}`)
+  getExpenditureDetails(inviteToken: string): Observable<Expenditure> {
+    return this.http.get<Expenditure>(this.getUrl+`expenditure/${inviteToken}`)
   }
 
   getExpensesForExpenditure(inviteToken: string) {

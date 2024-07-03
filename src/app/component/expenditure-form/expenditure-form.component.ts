@@ -52,7 +52,7 @@ export class ExpenditureFormComponent implements OnInit{
 
   onSubmit(): void {
     const expenditureName = this.form.get('expenditureName')?.value;
-    const userArray = this.utilSvc.getUsers(this.usernames);
+    const userArray = this.utilSvc.getUsersFromForm(this.usernames);
     const currency = this.form.get('selectedCurrency')?.value;
     const inviteToken = this.utilSvc.generateSecureRandomString(25);
 

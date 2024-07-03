@@ -19,7 +19,7 @@ export class UtilService {
     return result;
   }
   
-  getUsers(arr: FormArray): User[] {
+  getUsersFromForm(arr: FormArray): User[] {
     const userArray = new Array<User>; 
 
     for (let index = 0; index < arr.length; index++) {
@@ -29,8 +29,11 @@ export class UtilService {
         userArray.push(newUser);
       }
     }
-
     return userArray
   }  
-  constructor() { }
+
+  getUsersFromBackend(obj: Object) {
+    
+  }
+  
 }

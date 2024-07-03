@@ -1,4 +1,5 @@
 import { IExpenditure } from "../interface/iexpenditure";
+import { Expense } from "./expenses";
 import { User } from "./user";
 
 export class Expenditure implements IExpenditure{
@@ -6,6 +7,8 @@ export class Expenditure implements IExpenditure{
   users!: User[];
   defaultCurrency!: string;
   inviteToken!: string;
+  expenditureUsers!: User[]
+  expenses!: Expense[]
 
   constructor(expName: string, users: User[], currency: string, invToken: string) {
     this.expenditureName = expName;
@@ -13,4 +16,10 @@ export class Expenditure implements IExpenditure{
     this.defaultCurrency = currency;
     this.inviteToken = invToken;
   }
+
+  
+  public set setExpenditureUsers(v : User[]) {
+    this.expenditureUsers = v;
+  }
+  
 }
