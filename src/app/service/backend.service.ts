@@ -8,14 +8,19 @@ import { Expenditure } from '../classes/expenditure';
 })
 export class BackendService {
   private readonly http = inject(HttpClient);
-  private readonly expUrl = "http://localhost:8080/api/post/initializeexpenditure"
+  private readonly postUrl = "http://localhost:8080/api/post/"
+  private readonly getUrl = "http://localhost:8080/api/get/"
 
   createExpenditure(expenditure: Expenditure): Observable<any> {
-    return this.http.post<Expenditure>(this.expUrl, expenditure)
+    return this.http.post<Expenditure>(this.postUrl+"initializeexpenditure", expenditure)
+  }
+
+  getExpenditureDetails(inviteToken: string): Observable<any> {
+    return this.http.get(this.getUrl+`expenditure/${inviteToken}`)
   }
 
   getExpensesForExpenditure(inviteToken: string) {
 
   }
-  
+
 }

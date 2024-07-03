@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,17 @@ export class UtilService {
     return result;
   }
   
-  getUsers(arr: FormArray): string[] {
-    const userArray = new Array<string>; 
+  getUsers(arr: FormArray): User[] {
+    const userArray = new Array<User>; 
 
     for (let index = 0; index < arr.length; index++) {
       const val = arr.at(index).value as string
       if (val.length > 0) {
-        userArray.push(val);
+        const newUser = new User(val);
+        userArray.push(newUser);
       }
     }
-    
+
     return userArray
   }  
   constructor() { }
