@@ -20,7 +20,7 @@
       <table formArrayName="costIncurred">
         @for (control of costIncurred.controls; track $index) {
           <tr>
-            <td>{{ usersInvolvedList[$index].userName }}</td>
+            <td>{{ usersList[$index].userName }}</td>
             <td><input class="bg-slate-600 w-24" type="number" [formControlName]="$index"></td>
           </tr>
         }

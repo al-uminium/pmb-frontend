@@ -24,7 +24,7 @@ export class ExpenseModalComponent implements OnInit{
   splitMethods: string[] = ['Evenly', 'Custom']
   
   @Input()
-  usersInvolvedList!: User[]
+  usersList!: User[]
 
   @Input()
   selectedUser!: User
@@ -36,7 +36,7 @@ export class ExpenseModalComponent implements OnInit{
     this.form = this.fb.group({
       expenseName: this.fb.control<string>('', Validators.required),
       totalCost: this.fb.control<number>(0, Validators.compose([Validators.required, Validators.min(0)])),
-      usersInvolved: this.fb.control<User>(this.usersInvolvedList.at(0) as User, Validators.required),
+      usersInvolved: this.fb.control<User>(this.usersList.at(0) as User, Validators.required),
       costIncurred: this.fb.array([])
     })
     this.populateCostIncurredArray()
@@ -47,7 +47,7 @@ export class ExpenseModalComponent implements OnInit{
   }
 
   populateCostIncurredArray(): void {
-    this.usersInvolvedList.forEach(() => {
+    this.usersList.forEach(() => {
       this.costIncurred.push(this.fb.control<number>(0, Validators.min(0)))
     });
   }
@@ -56,7 +56,7 @@ export class ExpenseModalComponent implements OnInit{
     console.log(this.form.get('totalCost')?.value);
     const totalCost = this.form.get('totalCost')?.value
     if (totalCost > 0) {
-      const splitAmt = totalCost / this.usersInvolvedList.length;
+      const splitAmt = totalCost / this.usersList.length;
       this.costIncurred.controls.forEach(control => {
         control.setValue(splitAmt.toFixed(2));
       });
@@ -78,9 +78,10 @@ export class ExpenseModalComponent implements OnInit{
   handleSubmit(): void {
     const expenseName = this.form.get('expenseName')?.value;
     const totalCost = this.form.get('totalCost')?.value;
-    const expenseSplit = this.utilSvc.getExpenseSplit(this.costIncurred, this.usersInvolvedList);
-    const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, this.usersInvolvedList, "", "");
-    console.log(expense);
+    const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList);
+    const expenseSplit = this.utilSvc.getExpenseSplit(this.costIncurred, this.usersList);
+    const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
+    // console.log(expense);
     this.createExpenseEvent.emit(expense);
   }
 }

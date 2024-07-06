@@ -5,7 +5,7 @@ export class Expense {
   expenseOwner!: User;
   expenseOwnerId!: string;
   totalCost!: number;
-  expenseSplit!: Map<string, number>;
+  expenseSplit!: { [key: string]: number };
   usersInvolved!: User[];
   exid!: string;
   eid!: string;
@@ -14,7 +14,7 @@ export class Expense {
     expanseName: string,
     owner: User,
     totalCost: number,
-    expenseSplit: Map<string, number>,
+    expenseSplit: { [key: string]: number },
     usersInvolved: User[],
     exid: string,
     eid: string

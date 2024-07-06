@@ -19,16 +19,29 @@ export class UtilService {
     return result;
   }
 
-  getExpenseSplit(arr: FormArray, users: User[]): Map<string, number> {
-    const expenseSplit = new Map<string, number>;
+  getExpenseSplit(arr: FormArray, users: User[]): { [key: string]: number } {
+    const expenseSplit = {} as { [key: string]: number };
 
     for (let i = 0; i < arr.controls.length; i++) {
-      const debt = arr.controls[i];
+      const debt = arr.controls[i].value;
       const user = users[i];
 
-      expenseSplit.set(user.userName, debt.value);
+      expenseSplit[user.userName] = debt;
     }
     return expenseSplit;
+  }
+
+  getUsersInvolved(arr: FormArray, users: User[]): User[] {
+    const usersInvolved = new Array<User>;
+
+    for (let i = 0; i < arr.controls.length; i++) {
+      const control = arr.controls[i];
+      if (control.value > 0) {
+        usersInvolved.push(users[i]);
+      }
+    }
+
+    return usersInvolved;
   }
   
   getUsersFromForm(arr: FormArray): User[] {
