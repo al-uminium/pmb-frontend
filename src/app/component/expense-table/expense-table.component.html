@@ -1,1 +1,20 @@
-<p>expense-table works!</p>
+<table>
+  <tr>
+    <th>Expense Name</th>
+    <th>Total Cost</th>
+    <th>Who paid...</th>
+    <th>And who needs to pay</th>
+  </tr>
+  @for (expense of expenses; track $index) {
+    <tr>
+      <td>{{ expense.expenseName }}</td>
+      <td>{{ expense.totalCost }}</td>
+      <td>{{ expense.expenseOwner.userName }}</td>
+      <td>
+        @for (user of expense.usersInvolved; track $index) {
+          <td>{{ user.userName }}</td>
+        }
+      </td>
+    </tr>
+  }
+</table>

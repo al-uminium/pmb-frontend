@@ -18,6 +18,18 @@ export class UtilService {
     }
     return result;
   }
+
+  getExpenseSplit(arr: FormArray, users: User[]): Map<string, number> {
+    const expenseSplit = new Map<string, number>;
+
+    for (let i = 0; i < arr.controls.length; i++) {
+      const debt = arr.controls[i];
+      const user = users[i];
+
+      expenseSplit.set(user.userName, debt.value);
+    }
+    return expenseSplit;
+  }
   
   getUsersFromForm(arr: FormArray): User[] {
     const userArray = new Array<User>; 
@@ -36,4 +48,5 @@ export class UtilService {
     
   }
   
+
 }

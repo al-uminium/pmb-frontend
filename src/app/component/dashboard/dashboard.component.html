@@ -1,2 +1,21 @@
+@if (showUserModal) {
+  <app-select-user-modal [users]="users" (selectUserEvent)="selectUser($event)" ></app-select-user-modal>
+  <div class="fixed inset-0 backdrop-blur-sm"></div>
+}
+
 <div>{{ expenditure.expenditureName }}</div>
 
+@if (expenses.length > 0) {
+  <app-expense-table [expenses]="expenditure.expenses"></app-expense-table>
+} @else {
+  <div>Looks like you don't have an expense yet. Go ahead and create one to get started!</div>
+}
+
+
+
+<button type="button" (click)="toggleExpenseModal()">Create an expense</button>
+
+@if (showExpenseModal) {
+  <app-expense-modal [usersInvolvedList]="users" [selectedUser]="selectedUser" (createExpenseEvent)="setExpense($event)"></app-expense-modal>
+  <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
+}

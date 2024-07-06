@@ -1,0 +1,14 @@
+<div class="modal">
+  <div>
+    Choose who you're viewing the expenses as!
+  </div>
+  @for (user of users; track $index) {
+    <ul>
+      <li class="cursor-pointer hover:bg-slate-400">
+        <button (click)="selectUser(user)">
+          {{ user.userName }}
+        </button>
+      </li>
+    </ul>
+  }
+</div>

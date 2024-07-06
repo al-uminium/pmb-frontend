@@ -29,7 +29,7 @@ export class ExpenditureFormComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.fb.group({
       expenditureName: this.fb.control<string>('', Validators.required),
-      usernames: this.fb.array([this.fb.control('', Validators.required)]),
+      usernames: this.fb.array([this.fb.control<string>('', Validators.required)]),
       selectedCurrency: this.fb.control<string>('', Validators.required)
     })
   }

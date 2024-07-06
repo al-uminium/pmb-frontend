@@ -7,7 +7,7 @@ export class Expenditure implements IExpenditure{
   users!: User[];
   defaultCurrency!: string;
   inviteToken!: string;
-  expenditureUsers!: User[]
+  // expenditureUsers!: User[]
   expenses!: Expense[]
 
   constructor(expName: string, users: User[], currency: string, invToken: string) {
@@ -18,8 +18,8 @@ export class Expenditure implements IExpenditure{
   }
 
   
-  public set setExpenditureUsers(v : User[]) {
-    this.expenditureUsers = v;
+  public set setUsers(v : User[]) {
+    this.users = v;
   }
   
 }
