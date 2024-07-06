@@ -60,5 +60,14 @@ export class DashboardComponent implements OnInit {
 
   setExpense(expense: Expense) {
     this.createdExpense = expense;
+    this.bkSvc.createExpense(this.createdExpense, this.inviteToken).subscribe({
+      next: () => {
+        this.bkSvc.getExpenditureDetails(this.inviteToken).subscribe((data) => {
+          this.expenditure = data;
+          this.users = data.users;
+          this.expenses = data.expenses;
+        })
+      }
+    })
   }
 }
