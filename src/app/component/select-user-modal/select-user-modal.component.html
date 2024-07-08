@@ -1,12 +1,12 @@
-<div class="modal">
-  <div>
+<div class="bg-slate-700  shadow-2xl border-slate-600 rounded-md w-96 top-1/4 left-2/4 -translate-x-1/2 px-20 py-8 z-50 text-center fixed">
+  <div class="font-roboto text-xl text-slate-300 mb-2">
     Choose who you're viewing the expenses as!
   </div>
   @for (user of users; track $index) {
     <ul>
       <li class="cursor-pointer hover:bg-slate-400">
-        <button (click)="selectUser(user)">
-          {{ user.userName }}
+        <button class="font-oswald my-1 rounded-sm" (click)="selectUser(user)">
+          {{ user.userName | uppercase }} 
         </button>
       </li>
     </ul>

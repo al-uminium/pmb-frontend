@@ -24,6 +24,15 @@ export class BackendService {
     return this.http.get<Expenditure>(`${this.getUrl}/expenditure/${inviteToken}`)
   }
 
+
+  getExpensesForOwner(inviteToken: string, ownerId: string): Observable<Expense[]> {
+    return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${ownerId}&${inviteToken}`)
+  }
+
+  getExpensesWhereUserOwes(inviteToken: string, uid: string): Observable<Expense[]> {
+    return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${uid}&${inviteToken}&owes`)
+  }
+
   getExpensesForExpenditure(inviteToken: string) {
 
   }

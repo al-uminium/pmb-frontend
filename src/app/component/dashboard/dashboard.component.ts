@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   selectedUser!: User;
   expenses!: Expense[];
   showExpenseModal: boolean = false;
+  selectedUserExpense!: Expense[]
+  selectedUserOwedExpense!: Expense[]
 
   @Input()
   createdExpense!: Expense
@@ -60,6 +62,10 @@ export class DashboardComponent implements OnInit {
 
   setExpense(expense: Expense) {
     this.createdExpense = expense;
+  }
+
+  setExpenseAfterCreating(expense: Expense) {
+    this.setExpense(expense);
     this.bkSvc.createExpense(this.createdExpense, this.inviteToken).subscribe({
       next: () => {
         console.log(this.createdExpense.expenseSplit);
@@ -71,5 +77,21 @@ export class DashboardComponent implements OnInit {
         })
       }
     })
+  }
+
+  getExpenseForOwner() {
+    this.bkSvc.getExpensesForOwner(this.inviteToken, this.selectedUser.userId).subscribe(
+      (data) => {
+        this.selectedUserExpense = data;
+      }
+    )
+  }
+
+  getExpenseWhereUserOwes() {
+    this.bkSvc.getExpensesWhereUserOwes(this.inviteToken, this.selectedUser.userId).subscribe(
+      (data) => {
+        this.selectedUserOwedExpense = data;
+      }
+    )
   }
 }

@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular
 import { User } from '../../classes/user';
 import { BackendService } from '../../service/backend.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-select-user-modal',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './select-user-modal.component.html',
   styleUrl: './select-user-modal.component.css'
 })

@@ -20,9 +20,9 @@
       <div class="font-roboto font-normal text-slate-200">
         Who's going to part of your spending team?
       </div>
-      <div class="w-32 h-12 ml-5 px-2 flex items-center justify-center border border-slate-400">
+      <div class="w-32 h-12 ml-5 px-3 rounded-sm flex items-center justify-center bg-slate-900">
         <ng-icon name="heroUserPlus"></ng-icon>
-        <button class="text-sm font-light pl-1" type="button" (click)="addUser()">Add more users</button>
+        <button class="text-sm font-light font-roboto pl-1" type="button" (click)="addUser()">Add more users</button>
       </div>
     </div>
    <div formArrayName="usernames">
@@ -42,6 +42,6 @@
    </div>
   </div>
   <app-dropdown [values]="defCurrencies" value="Select your currency" (valueChange)="setCurrency($event)"></app-dropdown>
-  <button [disabled]="!form.valid"  class="mt-5 bg-slate-900 w-40 h-12 disabled:bg-slate-400 disabled:text-slate-500" type="submit">Create Expenditure</button>
+  <button [disabled]="!form.valid"  class="mt-5 font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button>
   
 </form>
