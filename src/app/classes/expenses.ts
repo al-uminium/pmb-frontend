@@ -7,7 +7,6 @@ export class Expense {
   totalCost!: number;
   expenseSplit!: { [key: string]: number };
   usersInvolved!: User[];
-  usersPaid!: User[];
   exid!: string;
   eid!: string;
 

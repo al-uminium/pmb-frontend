@@ -78,9 +78,11 @@ export class ExpenseModalComponent implements OnInit{
   handleSubmit(): void {
     const expenseName = this.form.get('expenseName')?.value;
     const totalCost = this.form.get('totalCost')?.value;
-    const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList);
+    const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList, this.selectedUser);
     const expenseSplit = this.utilSvc.getExpenseSplit(this.costIncurred, this.usersList);
+    console.log(expenseSplit);
     const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
+    console.log(expense);
     this.createExpenseEvent.emit(expense);
   }
 }

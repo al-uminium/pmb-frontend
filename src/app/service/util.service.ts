@@ -23,20 +23,20 @@ export class UtilService {
     const expenseSplit = {} as { [key: string]: number };
 
     for (let i = 0; i < arr.controls.length; i++) {
-      const debt = arr.controls[i].value;
+      const balance = arr.controls[i].value;
       const user = users[i];
-
-      expenseSplit[user.userName] = debt;
+      expenseSplit[user.userName] = balance * 1;
+      
     }
     return expenseSplit;
   }
 
-  getUsersInvolved(arr: FormArray, users: User[]): User[] {
+  getUsersInvolved(arr: FormArray, users: User[], owner:User): User[] {
     const usersInvolved = new Array<User>;
 
     for (let i = 0; i < arr.controls.length; i++) {
       const control = arr.controls[i];
-      if (control.value > 0) {
+      if (control.value > 0 && (users[i].userName != owner.userName)) {
         usersInvolved.push(users[i]);
       }
     }

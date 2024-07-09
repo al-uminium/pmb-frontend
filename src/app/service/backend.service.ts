@@ -34,11 +34,15 @@ export class BackendService {
     return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${uid}&${inviteToken}&owes`)
   }
 
-  getPaymentsToSettle(inviteToken: string, uid: string): Observable<{ [key: string]: number }> {
-    return this.http.get<{ [key: string]: number }>(`${this.getUrl}/settlepayments/${inviteToken}&${uid}`)
+  getPaymentsToSettle(inviteToken: string, uid: string): Observable<{ [username: string]: {[name: string] : number } }> {
+    return this.http.get<{ [username: string]: {[name: string] : number } }>(`${this.getUrl}/settlepayments/${inviteToken}&${uid}`)
   }
 
   getUsersOfExpenditure(inviteToken: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.getUrl}/expenditure/users/${inviteToken}`)
+  }
+
+  getBalanceOfExpenditure(inviteToken: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.getUrl}/expenditure/${inviteToken}/balance`)
   }
 }

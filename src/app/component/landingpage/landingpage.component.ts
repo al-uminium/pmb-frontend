@@ -12,6 +12,6 @@ export class LandingpageComponent {
   private readonly router = inject(Router);
 
   onCreateExpeditionClick(): void {
-    this.router.navigate(["/createexpenditure"]);
+    this.router.navigate(["/expenditure/create"]);
   }
 }

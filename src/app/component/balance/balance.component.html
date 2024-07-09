@@ -1,0 +1,22 @@
+<p>balance works!</p>
+<div>
+@for (user of users; track $index) {
+  <div>{{ user.userName }}</div>
+  <div>{{ user.balance }}</div>
+}
+</div>
+<div>
+  <ul>
+    @for (user of users; track $index) {
+      @for (otheruser of users; track $index) {
+        @if (paymentsToSettle[user.userName][otheruser.userName] < 0) {
+          <li>
+            {{ user.userName }} owes {{ otheruser.userName }} {{paymentsToSettle[user.userName][otheruser.userName]*-1}}
+            <button (click)="handleRepay(otheruser)">Repay</button>
+          </li>
+        }
+      }
+    }
+
+  </ul>
+</div>
