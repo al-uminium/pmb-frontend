@@ -7,12 +7,12 @@
 </div>
 <div>
   <ul>
-    @for (user of users; track $index) {
-      @for (otheruser of users; track $index) {
-        @if (paymentsToSettle[user.userName][otheruser.userName] < 0) {
+    @for (selectedUser of users; track $index) {
+      @for (user of users; track $index) {
+        @if (paymentsToSettle[selectedUser.userName][user.userName] < 0) {
           <li>
-            {{ user.userName }} owes {{ otheruser.userName }} {{paymentsToSettle[user.userName][otheruser.userName]*-1}}
-            <button (click)="handleRepay(otheruser)">Repay</button>
+            {{ selectedUser.userName }} owes {{ user.userName }} {{paymentsToSettle[selectedUser.userName][user.userName]*-1}}
+            <button (click)="handleRepay(selectedUser, user, paymentsToSettle[selectedUser.userName][user.userName]*-1)">Repay</button>
           </li>
         }
       }

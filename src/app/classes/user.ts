@@ -7,8 +7,12 @@ export class User {
     this.userName = userName;
   }
   
-  public set setUserId(userid : string) {
-    this.userId = userid;
-  }
+  // set userId(userid : string) {
+  //   this.userId = userid;
+  // }
+
+  // set balance(number: number) {
+  //   this.balance = number;
+  // }
   
 }
