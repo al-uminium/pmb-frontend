@@ -1,47 +1,85 @@
-<h1 class="text-4xl font-oswald w-2/3">Start tracking your expense journey </h1>
+<!-- <h1 class="text-4xl font-oswald w-2/3">Start tracking your expense journey </h1> -->
 
-<form [formGroup]="form" action="" class="ml-2 pt-10 grid gap-6" (ngSubmit)="onSubmit()">
-  <div class="grid w-2/5">
-    <label 
-      class="font-roboto font-bold text-slate-200 pt-2" 
-      for="expenditure-name">
-      Name your Expenditure:
-    </label>
-    <input 
-      type="text" 
-      name="expenditure-name" 
-      id="expenditure-name"
-      class="bg-inherit border-b font-roboto"
-      formControlName="expenditureName"
-    >
-  </div>
-  <div class="grid w-2/5">
-    <div div class="flex items-center">
-      <div class="font-roboto font-normal text-slate-200">
-        Who's going to part of your spending team?
-      </div>
-      <div class="w-32 h-12 ml-5 px-3 rounded-sm flex items-center justify-center bg-slate-900">
-        <ng-icon name="heroUserPlus"></ng-icon>
-        <button class="text-sm font-light font-roboto pl-1" type="button" (click)="addUser()">Add more users</button>
+<div class="flex-1 max-w-screen-md w-full mx-auto px-4 py-6 flex flex-col gap-6">
+
+  <form [formGroup]="form" action="" (ngSubmit)="onSubmit()">
+    <div class="p-6 bg-slate-800 rounded-md box-border">
+      <h2 class="text-2xl font-bold font-oswald pb-2">Expenditure Information</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-3">
+          <label 
+            class="font-roboto text-slate-200 pt-2" 
+            for="expenditure-name">
+            Expenditure Name
+          </label>
+          <input 
+            type="text" 
+            name="expenditure-name" 
+            id="expenditure-name"
+            class="bg-inherit border-b border-slate-500 font-roboto"
+            formControlName="expenditureName"
+            placeholder="My First Expenditure"
+          >
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+          <app-dropdown [values]="defCurrencies" value="Select your currency" (valueChange)="setCurrency($event)"></app-dropdown>
+          <div class="text-xs text-slate-400">This currency will be used for your expenditure, but you can convert it later if needed.</div>
+        </div>
       </div>
     </div>
-   <div formArrayName="usernames">
-    @for (user of usernames.controls; track $index) {
-      <label class="flex justify-between border-b pt-4" for="user-{{ $index }}">
-        <input 
-          type="text" 
-          name="users" 
-          id="user-{{ $index }}"
-          class="bg-inherit w-11/12 font-roboto self-center focus:outline-slate-100"
-          placeholder="Enter a username here..."
-          [formControlName]="$index"
-        >
-        <ng-icon class="self-center w-1/12 cursor-pointer" [id]="$index" (click)="deleteUser($index)" name="heroXMark"></ng-icon>
-      </label>
-    }
-   </div>
-  </div>
-  <app-dropdown [values]="defCurrencies" value="Select your currency" (valueChange)="setCurrency($event)"></app-dropdown>
-  <button [disabled]="!form.valid"  class="mt-5 font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button>
+    <div class="mt-4 p-6 bg-slate-800 rounded-md box-border grid grid-cols-1 gap-4">
+      <h2 class="text-2xl font-bold font-oswald">Participants</h2>
+      <div formArrayName="usernames" class="grid gap-4" >
+        @for (user of usernames.controls; track $index) {
+          <label class="flex w-10/12 justify-between border-b border-slate-500 pt-4" for="user-{{ $index }}">
+            <input 
+              type="text" 
+              name="users" 
+              id="user-{{ $index }}"
+              class="bg-inherit font-roboto self-center w-11/12 py-2 pl-2 focus:outline-slate-100"
+              placeholder="Enter a username here..."
+              [formControlName]="$index"
+            >
+            <ng-icon class="self-center w-1/12 cursor-pointer" [id]="$index" (click)="deleteUser($index)" name="heroXMark"></ng-icon>
+          </label>
+        }
+       </div>
+       <div class="w-32 h-12 px-3 rounded-sm flex items-center justify-center bg-slate-700">
+        <ng-icon name="heroUserPlus"></ng-icon>
+        <button class="text-sm font-light font-roboto pl-1" type="button" (click)="addUser()">Add user</button>
+      </div>
+    </div>
+    <button [disabled]="!form.valid"  class="mt-5 font-roboto rounded-md font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button>
   
-</form>
+    <!-- <div class="grid">
+    </div> -->
+    <!-- <div class="grid w-2/5">
+      <div div class="flex items-center">
+        <div class="font-roboto font-normal text-slate-200">
+          Who's going to part of your spending team?
+        </div>
+        <div class="w-32 h-12 ml-5 px-3 rounded-sm flex items-center justify-center bg-slate-900">
+          <ng-icon name="heroUserPlus"></ng-icon>
+          <button class="text-sm font-light font-roboto pl-1" type="button" (click)="addUser()">Add more users</button>
+        </div>
+      </div>
+     <div formArrayName="usernames">
+      @for (user of usernames.controls; track $index) {
+        <label class="flex justify-between border-b pt-4" for="user-{{ $index }}">
+          <input 
+            type="text" 
+            name="users" 
+            id="user-{{ $index }}"
+            class="bg-inherit w-11/12 font-roboto self-center focus:outline-slate-100"
+            placeholder="Enter a username here..."
+            [formControlName]="$index"
+          >
+          <ng-icon class="self-center w-1/12 cursor-pointer" [id]="$index" (click)="deleteUser($index)" name="heroXMark"></ng-icon>
+        </label>
+      }
+     </div>
+    </div>
+    <button [disabled]="!form.valid"  class="mt-5 font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button> -->
+    
+  </form>
+</div>
