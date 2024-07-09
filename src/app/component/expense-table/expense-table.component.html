@@ -1,29 +1,5 @@
 @switch (mode) {
   @case ('settle') {
-    <table class="font-roboto w-full h-full">
-      <tr>
-        <th>Expense Name</th>
-        <th>Total Cost</th>
-        <th>Who paid...</th>
-        <th>Users involved</th>
-      </tr>
-      @for (expense of expenses; track $index) {
-        <tr>
-          <td>{{ expense.expenseName }}</td>
-          <td>{{ expense.totalCost }}</td>
-          <td>{{ expense.expenseOwner.userName }}</td>
-          <td class="grid grid-rows-1">
-            <ul>
-              @for (user of expense.usersInvolved; track $index) {
-                <li>
-                  <td>{{ user.userName }}</td>
-                </li>
-              }
-            </ul>
-          </td>
-        </tr>
-      }
-    </table>
   } 
   @case ('summary') {
     <table class="font-roboto w-full h-full table-auto border-collapse">
