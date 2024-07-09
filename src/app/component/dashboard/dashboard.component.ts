@@ -7,11 +7,14 @@ import { ExpenseTableComponent } from '../expense-table/expense-table.component'
 import { SelectUserModalComponent } from '../select-user-modal/select-user-modal.component';
 import { Expense } from '../../classes/expenses';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal.component';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { heroPlus, heroShare } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ExpenseTableComponent, SelectUserModalComponent, ExpenseModalComponent],
+  imports: [ExpenseTableComponent, SelectUserModalComponent, ExpenseModalComponent, NgIconComponent],
+  providers: [provideIcons({ heroShare, heroPlus })],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
