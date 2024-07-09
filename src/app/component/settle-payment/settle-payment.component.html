@@ -1,1 +1,16 @@
-<p>settle-payment works!</p>
+<div>
+  @for (user of users; track $index) {
+    @if (payment[user.userName] > 0) {
+      <div>{{ user.userName }} owes you {{ payment[user.userName].toFixed(2) }}</div>
+      <div>You don't have to debts to pay!</div>
+    } 
+    @if (payment[user.userName] < 0) {
+      <div class="flex">
+        <div>You owe {{ user.userName }} {{ payment[user.userName].toFixed(2).replace('-', '') }}</div>
+        
+        <button type="button">Settle Payment</button>
+      </div>
+    }
+  }
+  <button type="button">Dashboard</button>
+</div>

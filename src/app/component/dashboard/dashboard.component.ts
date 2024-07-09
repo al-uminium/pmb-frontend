@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from '../../service/backend.service';
 import { Expenditure } from '../../classes/expenditure';
 import { User } from '../../classes/user';
@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   createdExpense!: Expense
 
   private readonly actRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly bkSvc = inject(BackendService);
 
   ngOnInit(): void {
@@ -74,6 +75,7 @@ export class DashboardComponent implements OnInit {
           this.expenditure = data;
           this.users = data.users;
           this.expenses = data.expenses;
+          this.toggleExpenseModal();
         })
       }
     })
@@ -93,5 +95,9 @@ export class DashboardComponent implements OnInit {
         this.selectedUserOwedExpense = data;
       }
     )
+  }
+
+  handleSettlePayments() {
+    this.router.navigate(['settlepayments'], { queryParams: {exid: this.inviteToken, uid: this.selectedUser.userId} })
   }
 }

@@ -81,7 +81,6 @@ export class ExpenseModalComponent implements OnInit{
     const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList);
     const expenseSplit = this.utilSvc.getExpenseSplit(this.costIncurred, this.usersList);
     const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
-    // console.log(expense);
     this.createExpenseEvent.emit(expense);
   }
 }

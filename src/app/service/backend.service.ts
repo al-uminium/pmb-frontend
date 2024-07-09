@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Expenditure } from '../classes/expenditure';
 import { Expense } from '../classes/expenses';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,11 @@ export class BackendService {
     return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${uid}&${inviteToken}&owes`)
   }
 
-  getExpensesForExpenditure(inviteToken: string) {
-
+  getPaymentsToSettle(inviteToken: string, uid: string): Observable<{ [key: string]: number }> {
+    return this.http.get<{ [key: string]: number }>(`${this.getUrl}/settlepayments/${inviteToken}&${uid}`)
   }
 
+  getUsersOfExpenditure(inviteToken: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.getUrl}/expenditure/users/${inviteToken}`)
+  }
 }

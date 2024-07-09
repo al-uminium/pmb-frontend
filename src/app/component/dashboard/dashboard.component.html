@@ -9,22 +9,16 @@
   <div class="w-4/5 grid grid-cols-2">
     <h3 class="text-2xl text-slate-400 font-oswald">Expenses</h3>
     <button type="button" class="font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 px-2" (click)="toggleExpenseModal()">Create Expense</button>
-    <button type="button" (click)="getExpenseForOwner()">Who owes you</button>
-    <app-expense-table class="col-span-2 justify-self-center" [expenses]="selectedUserExpense"></app-expense-table>
-    <button type="button" (click)="getExpenseWhereUserOwes()" >Who you owe</button>
-    <app-expense-table class="col-span-2 justify-self-center" [expenses]="selectedUserOwedExpense"></app-expense-table>
-    <button>All Expense</button>
-    <app-expense-table class="col-span-2 justify-self-center" [expenses]="expenditure.expenses"></app-expense-table>
+    <app-expense-table class="col-span-2 justify-self-center" [expenses]="expenditure.expenses" mode="summary"></app-expense-table>
   </div>
 } @else {
   <div>Looks like you don't have an expense yet. Go ahead and create one to get started!</div>
   <button type="button" class="font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 px-2" (click)="toggleExpenseModal()">Create Expense</button>
 }
 
-
-
-
 @if (showExpenseModal) {
   <app-expense-modal [usersList]="users" [selectedUser]="selectedUser" (createExpenseEvent)="setExpenseAfterCreating($event)"></app-expense-modal>
   <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
 }
+
+<button type="button" (click)="handleSettlePayments()" >Settle Payments</button>
