@@ -1,7 +1,4 @@
-<!-- <h1 class="text-4xl font-oswald w-2/3">Start tracking your expense journey </h1> -->
-
 <div class="flex-1 max-w-screen-md w-full mx-auto px-4 py-6 flex flex-col gap-6">
-
   <form [formGroup]="form" action="" (ngSubmit)="onSubmit()">
     <div class="p-6 bg-slate-800 rounded-md box-border">
       <h2 class="text-2xl font-bold font-oswald pb-2">Expenditure Information</h2>
@@ -50,36 +47,5 @@
       </div>
     </div>
     <button [disabled]="!form.valid"  class="mt-5 font-roboto rounded-md font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button>
-  
-    <!-- <div class="grid">
-    </div> -->
-    <!-- <div class="grid w-2/5">
-      <div div class="flex items-center">
-        <div class="font-roboto font-normal text-slate-200">
-          Who's going to part of your spending team?
-        </div>
-        <div class="w-32 h-12 ml-5 px-3 rounded-sm flex items-center justify-center bg-slate-900">
-          <ng-icon name="heroUserPlus"></ng-icon>
-          <button class="text-sm font-light font-roboto pl-1" type="button" (click)="addUser()">Add more users</button>
-        </div>
-      </div>
-     <div formArrayName="usernames">
-      @for (user of usernames.controls; track $index) {
-        <label class="flex justify-between border-b pt-4" for="user-{{ $index }}">
-          <input 
-            type="text" 
-            name="users" 
-            id="user-{{ $index }}"
-            class="bg-inherit w-11/12 font-roboto self-center focus:outline-slate-100"
-            placeholder="Enter a username here..."
-            [formControlName]="$index"
-          >
-          <ng-icon class="self-center w-1/12 cursor-pointer" [id]="$index" (click)="deleteUser($index)" name="heroXMark"></ng-icon>
-        </label>
-      }
-     </div>
-    </div>
-    <button [disabled]="!form.valid"  class="mt-5 font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button> -->
-    
   </form>
 </div>
