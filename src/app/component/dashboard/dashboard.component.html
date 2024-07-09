@@ -31,7 +31,12 @@
 </div>
 
 @if (showExpenseModal) {
-  <app-expense-modal [usersList]="users" [selectedUser]="selectedUser" (createExpenseEvent)="setExpenseAfterCreating($event)"></app-expense-modal>
+  <app-expense-modal 
+    [usersList]="users" 
+    [selectedUser]="selectedUser" 
+    currency={{expenditure.defaultCurrency}}
+    (createExpenseEvent)="setExpenseAfterCreating($event)">
+  </app-expense-modal>
   <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
 }
 

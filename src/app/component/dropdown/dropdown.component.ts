@@ -10,23 +10,19 @@ import { heroChevronDown } from '@ng-icons/heroicons/outline';
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.css'
 })
-export class DropdownComponent implements OnInit{
+export class DropdownComponent{
   @Input()
-  value: string = "";
+  value: any = "";
 
   @Input()
-  values!: string[];
+  values!: any[];
 
   @Output()
   valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   showDropdown: boolean = false;
 
-  ngOnInit(): void {
-
-  }
-
-  selectVal(value: string){
+  selectVal(value: any){
     this.valueChange.emit(value);
     this.value = value;
     this.showDropdown = false;

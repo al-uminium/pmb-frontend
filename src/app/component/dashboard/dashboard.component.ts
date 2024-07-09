@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   showUserModal: boolean = true;
   selectedUser!: User;
   expenses!: Expense[];
-  showExpenseModal: boolean = false;
+  showExpenseModal: boolean = true;
   selectedUserExpense!: Expense[]
   selectedUserOwedExpense!: Expense[]
 
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
           this.expenditure = data;
           this.users = data.users;
           this.expenses = data.expenses;
-          console.log(data);
+          console.log(data.defaultCurrency);
         }
       })
     });

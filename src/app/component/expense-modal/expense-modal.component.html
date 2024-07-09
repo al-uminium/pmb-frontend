@@ -1,14 +1,72 @@
 
-<div class="bg-slate-700 shadow-2xl border-slate-800 rounded-md  top-1/4 left-2/4 -translate-x-1/2 px-20 py-8 z-50 text-center fixed">
-  <h3 class="text-2xl">
-    Create Expense
+<div class="bg-slate-800 shadow-2xl rounded-md max-w-screen-md w-full top-10 left-2/4 -translate-x-1/2 px-20 py-8 z-50 fixed">
+  <h3 class="text-2xl font-oswald">
+    Expense Details
   </h3>
+  <div>
+    <form [formGroup]="form" action="">
+      <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-4 content-center">
+        <div class="flex flex-col gap-2">
+          <label for="expense-name" class="text-slate-200">Expense title</label>
+          <input type="text" 
+            class="bg-slate-700 py-2 pl-2 rounded-sm" 
+            name="expense-name" 
+            id="expense-name" 
+            placeholder="Seafood at Bikini Bottom" 
+            formControlName="expenseName">
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="expense-cost" class="text-slate-200">Amount</label>
+          <div>
+            <span class="pr-2">{{ currency }}</span>
+            <input 
+              type="number" 
+              class="bg-slate-700 py-2 pl-2 rounded-sm text-slate-400 w-28" 
+              name="expense-cost" 
+              id="expense-cost" 
+              formControlName="totalCost">
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-2xl font-oswald">
+          Participants involved
+          <div class="text-sm pt-2 text-slate-400 font-roboto">Who was involved in the expense?</div>
+        </h3>
+        <div formArrayName="costIncurred">
+          <ul>
+            @for (control of costIncurred.controls; track $index) {
+              <li [formGroupName]="$index" class="flex justify-between items-center py-2">
+                <div class="flex items-center">
+                  <input 
+                    class="relative peer appearance-none w-4 h-4 border-2 rounded-sm border-amber-500 shrink checked:bg-amber-500 cursor-pointer bg-white" 
+                    type="checkbox"
+                    checked
+                    [formControlName]="'checked'"
+                    [id]="usersList[$index].userId">
+                  <ng-icon class="absolute hidden pointer-events-none peer-checked:block" name="heroCheck"></ng-icon>
+                  <label class="pl-2" [for]="usersList[$index].userId">{{ usersList[$index].userName }}</label>
+                </div>
+                <div>
+                  <span class="pr-2">{{currency}}</span>
+                  <input 
+                    class="bg-slate-600 w-24 py-1 pl-2 rounded-md" 
+                    type="number"
+                    [formControlName]="'cost'">
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </form>
+    <button type="button" class="mt-4 font-roboto font-bold bg-gradient-to-r p-3 from-pink-500 from-10% to-yellow-500 rounded-md" (click)="handleSubmit()">Create Expense</button>
+  </div>
 </div>
 
 <!-- <div class="bg-sky-950 modal">
   <form [formGroup]="form" action="">
     <div>
-      <input type="text" class="bg-slate-600" name="expense-name" id="expense-name" placeholder="Name your expense" formControlName="expenseName">
     </div>
     <div>
       <label for="expense-cost">Total Cost: </label>
