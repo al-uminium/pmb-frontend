@@ -16,12 +16,12 @@
             formControlName="expenseName">
         </div>
         <div class="flex flex-col gap-2">
-          <label for="expense-cost" class="text-slate-200">Amount</label>
+          <label for="expense-cost">Amount</label>
           <div>
             <span class="pr-2">{{ currency }}</span>
             <input 
               type="number" 
-              class="bg-slate-700 py-2 pl-2 rounded-sm text-slate-400 w-28" 
+              class="bg-slate-700 py-2 pl-2 rounded-sm w-28" 
               name="expense-cost" 
               id="expense-cost" 
               formControlName="totalCost">
@@ -35,62 +35,57 @@
         </h3>
         <div formArrayName="costIncurred">
           <ul>
-            @for (control of costIncurred.controls; track $index) {
-              <li [formGroupName]="$index" class="flex justify-between items-center py-2">
+            @for (control of costIncurred; track $index) {
+              <li [formGroup]="control" class="flex h-14 justify-between items-center py-2">
                 <div class="flex items-center">
                   <input 
                     class="relative peer appearance-none w-4 h-4 border-2 rounded-sm border-amber-500 shrink checked:bg-amber-500 cursor-pointer bg-white" 
                     type="checkbox"
-                    checked
+                    (click)="toggle(control)"
                     [formControlName]="'checked'"
                     [id]="usersList[$index].userId">
                   <ng-icon class="absolute hidden pointer-events-none peer-checked:block" name="heroCheck"></ng-icon>
                   <label class="pl-2" [for]="usersList[$index].userId">{{ usersList[$index].userName }}</label>
                 </div>
-                <div>
-                  <span class="pr-2">{{currency}}</span>
-                  <input 
-                    class="bg-slate-600 w-24 py-1 pl-2 rounded-md" 
-                    type="number"
-                    [formControlName]="'cost'">
-                </div>
+                @if (!isSplitEven) {
+                  <div>
+                    <span class="pr-2">{{currency}}</span>
+                    <input 
+                      class="bg-slate-700 w-24 py-1 pl-2 rounded-sm disabled:bg-slate-900" 
+                      type="number"
+                      [formControlName]="'cost'">
+                  </div>
+                }
               </li>
             }
           </ul>
+          <div class="bg-slate-700 flex gap-2 max-w-fit p-2 my-3 rounded-sm">
+            <button 
+              type="button" 
+              class="p-2 rounded-sm" 
+              (click)="toggleIsSplitEven()" 
+              [class.bg-amber-500]="isSplitEven" 
+              [class.text-amber-50]="isSplitEven">
+              Split Evenly
+            </button>
+            <button 
+              type="button" 
+              class="p-2 rounded-sm" 
+              (click)="toggleIsSplitEven()" 
+              [class.bg-amber-500]="!isSplitEven" 
+              [class.text-amber-50]="!isSplitEven">
+              Custom Amount
+            </button>
+          </div>
         </div>
       </div>
     </form>
-    <button type="button" class="mt-4 font-roboto font-bold bg-gradient-to-r p-3 from-pink-500 from-10% to-yellow-500 rounded-md" (click)="handleSubmit()">Create Expense</button>
+    <button 
+      [disabled]="!form.valid" 
+      type="button" 
+      class="mt-4 font-roboto font-bold bg-gradient-to-r p-3 from-pink-500 from-10% to-yellow-500 rounded-md" 
+      (click)="handleSubmit()">
+      Create Expense
+    </button>
   </div>
 </div>
-
-<!-- <div class="bg-sky-950 modal">
-  <form [formGroup]="form" action="">
-    <div>
-    </div>
-    <div>
-      <label for="expense-cost">Total Cost: </label>
-      <input type="number" class="bg-slate-600" name="expense-cost" id="expense-cost" formControlName="totalCost">
-    </div>
-    <div>
-      How do you want to split?
-    </div>
-    <div>
-      @for (split of splitMethods; track $index) {
-        <label [for]="split">{{ split }}</label>
-        <input type="radio" name="split-methods" [id]="split" (click)="handleSplitMethod(split)" >
-      }
-    </div>
-    <div>
-      <table formArrayName="costIncurred">
-        @for (control of costIncurred.controls; track $index) {
-          <tr>
-            <td>{{ usersList[$index].userName }}</td>
-            <td><input class="bg-slate-600 w-24" type="number" [formControlName]="$index"></td>
-          </tr>
-        }
-      </table>
-    </div>
-    <button type="button" (click)="handleSubmit()" >Testing</button>
-  </form>
-</div> -->

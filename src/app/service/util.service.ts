@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { User } from '../classes/user';
 
 @Injectable({
@@ -19,24 +19,49 @@ export class UtilService {
     return result;
   }
 
-  getExpenseSplit(arr: FormArray, users: User[]): { [key: string]: number } {
-    const expenseSplit = {} as { [key: string]: number };
 
-    for (let i = 0; i < arr.controls.length; i++) {
-      const balance = arr.controls[i].value;
-      const user = users[i];
-      expenseSplit[user.userName] = balance * 1;
-      
+  getExpenseSplitFromFormGroup(arr: FormGroup[], users: User[]): { [key: string]: number } {
+    const expenseSplit = {} as { [key: string]: number };
+    for(let i = 0; i < arr.length; i++) {
+      const checkBoxVal = arr[i].get('checked')?.value;
+      if (checkBoxVal) {
+        const user = users[i];
+        const costVal = arr[i].get('cost')?.value as number;
+        expenseSplit[user.userName] = costVal;
+      }
     }
     return expenseSplit;
   }
 
-  getUsersInvolved(arr: FormArray, users: User[], owner:User): User[] {
+  getExpenseSplitIfSplitEven(total: number, arr: FormGroup[], users: User[]): { [key: string]: number } {
+    const expenseSplit = {} as { [key: string]: number };
+    const usersInvolved = this.getUsersInvolved(arr, users);
+    const splitAmt = Number.parseFloat((total / usersInvolved.length).toFixed(2));
+
+    usersInvolved.forEach(user => {
+      expenseSplit[user.userName] = splitAmt;
+    });
+    return expenseSplit;
+  }
+
+  // getExpenseSplit(arr: FormArray, users: User[]): { [key: string]: number } {
+  //   const expenseSplit = {} as { [key: string]: number };
+
+  //   for (let i = 0; i < arr.controls.length; i++) {
+  //     const balance = arr.controls[i].value;
+  //     const user = users[i];
+  //     expenseSplit[user.userName] = balance * 1;
+      
+  //   }
+  //   return expenseSplit;
+  // }
+
+  getUsersInvolved(arr: FormGroup[], users: User[]): User[] {
     const usersInvolved = new Array<User>;
 
-    for (let i = 0; i < arr.controls.length; i++) {
-      const control = arr.controls[i];
-      if (control.value > 0 && (users[i].userName != owner.userName)) {
+    for (let i = 0; i < arr.length; i++) {
+      const checkBoxVal = arr[i].get('checked')?.value;
+      if (checkBoxVal) {
         usersInvolved.push(users[i]);
       }
     }
