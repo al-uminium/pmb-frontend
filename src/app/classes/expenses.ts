@@ -14,7 +14,9 @@ export class Expense {
     expanseName: string,
     owner: User,
     totalCost: number,
-    expenseSplit: { [key: string]: number },
+    expenseSplit: { 
+      [key: string]: number 
+    },
     usersInvolved: User[],
     exid: string,
     eid: string

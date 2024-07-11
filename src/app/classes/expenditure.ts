@@ -7,7 +7,6 @@ export class Expenditure implements IExpenditure{
   users!: User[];
   defaultCurrency!: string;
   inviteToken!: string;
-  // expenditureUsers!: User[]
   expenses!: Expense[]
 
   constructor(expName: string, users: User[], currency: string, invToken: string) {
