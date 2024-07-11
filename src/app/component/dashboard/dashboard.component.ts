@@ -8,7 +8,7 @@ import { SelectUserModalComponent } from '../select-user-modal/select-user-modal
 import { Expense } from '../../classes/expenses';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroPlus, heroShare } from '@ng-icons/heroicons/outline';
+import { heroPlus, heroShare, heroUsers } from '@ng-icons/heroicons/outline';
 import { select, Store, StoreModule } from '@ngrx/store';
 import { selectUser } from '../../state/user.actions';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,9 @@ import { selectSelectedUser } from '../../state/user.selectors';
     NgIconComponent,
     StoreModule
   ],
-  providers: [provideIcons({ heroShare, heroPlus })],
+  providers: [
+    provideIcons({ heroUsers, heroPlus })
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -38,11 +40,9 @@ export class DashboardComponent implements OnInit {
 
   expenditure$!: Observable<Expenditure>;
   selectedUser$!: Observable<User | null>;
-  
+
   inviteToken!: string;
   showUserModal: boolean = true;
-  selectedUser!: User;
-  expenses!: Expense[];
   showExpenseModal: boolean = false;
   selectedUserExpense!: Expense[]
   selectedUserOwedExpense!: Expense[]
@@ -51,12 +51,12 @@ export class DashboardComponent implements OnInit {
   createdExpense!: Expense
 
   ngOnInit(): void {
-    this.selectedUser$ = this.store.pipe(select(selectSelectedUser));
     this.actRoute.paramMap.subscribe(params => {
       this.inviteToken = params.get('id') as string
       this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
       this.expenditure$.subscribe(expenditure => {
         this.onPageLoad(expenditure);
+        this.selectedUser$ = this.store.pipe(select(selectSelectedUser))
       })
     });
   }
@@ -70,45 +70,19 @@ export class DashboardComponent implements OnInit {
   }
 
   selectUser(user: User): void {
-    this.store.dispatch(selectUser({ user }));
-    // this.selectedUser = user;
+    this.store.dispatch(selectUser({ user: user }));
     localStorage.setItem('selectedUser', JSON.stringify({ user }));
     this.toggleUserModal();
   }
 
-  setExpense(expense: Expense) {
-    this.createdExpense = expense;
-  }
-
-  setExpenseAfterCreating(expense: Expense) {
-    this.setExpense(expense);
-    this.bkSvc.createExpense(this.createdExpense, this.inviteToken).subscribe({
+  createExpense(expense: Expense) {
+    this.bkSvc.createExpense(expense, this.inviteToken).subscribe({
       next: () => {
-        console.log(this.createdExpense.expenseSplit);
+        console.log(expense.expenseSplit);
         this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken)
         this.toggleExpenseModal()
       }
     })
-  }
-
-  getExpenseForOwner() {
-    this.bkSvc.getExpensesForOwner(this.inviteToken, this.selectedUser.userId).subscribe(
-      (data) => {
-        this.selectedUserExpense = data;
-      }
-    )
-  }
-
-  getExpenseWhereUserOwes() {
-    this.bkSvc.getExpensesWhereUserOwes(this.inviteToken, this.selectedUser.userId).subscribe(
-      (data) => {
-        this.selectedUserOwedExpense = data;
-      }
-    )
-  }
-
-  handleSettlePayments() {
-    this.router.navigate(['settlepayments'], { queryParams: {exid: this.inviteToken, uid: this.selectedUser.userId} })
   }
 
   handleRouteToBalance() {
@@ -117,22 +91,14 @@ export class DashboardComponent implements OnInit {
 
   onPageLoad(expenditure: Expenditure) {
     const storedUser = localStorage.getItem('selectedUser');
-    console.log("printing stored user");
     if (storedUser) {
-      console.log("Stored user is true");
-      let isUserInExpenditure = false;
       const userObj = JSON.parse(storedUser);
-      console.log(userObj.user.userName);
       expenditure.users.forEach(expenditureUser => {
         const user = expenditureUser as User;
         if (userObj.user.userId == expenditureUser.userId) {
-          this.store.dispatch(selectUser({ user }));
-          isUserInExpenditure = true;
+          this.selectUser(user)
         } 
       })
-      if (isUserInExpenditure) {
-        this.showUserModal = false;
-      }
     }
   }
 }

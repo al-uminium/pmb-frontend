@@ -29,27 +29,15 @@ export class BalanceComponent implements OnInit {
   settlements$!: Observable<{ [username: string]: {[name: string] : number } }>
   
   inviteToken!: string;
-  users!: User[]
-  showModal: boolean = false;
   paymentsToSettle!: { [username: string]: {[name: string] : number } }
+  hasSettlements!: boolean;
 
   ngOnInit(): void {
     this.actRoute.paramMap.subscribe(param => {
       this.inviteToken = param.get('id') as string;
       this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
-      // this.usersBalance$ = this.bkSvc.getBalanceOfExpenditure(this.path);
       this.settlements$ = this.bkSvc.getPaymentsToSettle(this.inviteToken);
       this.selectedUser$ = this.store.pipe(select(selectSelectedUser));
-
-      // this.bkSvc.getBalanceOfExpenditure(this.path).subscribe(data => {
-      //   this.users = data;
-      //   this.bkSvc.getPaymentsToSettle(this.path).subscribe(data => {
-      //     this.paymentsToSettle = data
-      //     console.log("Printing out payments to settle... ");
-      //     console.log(this.paymentsToSettle);
-      //   })
-      //   console.log(data);
-      // });
     })
   }
 
@@ -59,19 +47,24 @@ export class BalanceComponent implements OnInit {
     expenseSplit[selectedUser.userName] = amount;
     expenseSplit[user.userName] = amount;
     const usersInvolved = [user];
-    const expense = new Expense(expenseName, selectedUser, amount, expenseSplit, usersInvolved, "", "");    
+    const expense = new Expense(expenseName, selectedUser, amount, expenseSplit, usersInvolved, "", "");
+    console.log(expense);
     this.bkSvc.createExpense(expense, this.inviteToken).subscribe(() => {
-      this.bkSvc.getBalanceOfExpenditure(this.inviteToken).subscribe(data => {
-        this.users = data;
-        this.bkSvc.getPaymentsToSettle(this.inviteToken).subscribe(data => {
-          this.paymentsToSettle = data
-          console.log(this.paymentsToSettle);
-        })
-      })
+      this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
+      this.settlements$ = this.bkSvc.getPaymentsToSettle(this.inviteToken);
     })
   }
 
   handleRouteToExpense() {
     this.router.navigate([`/expenditure/${this.inviteToken}`])
+  }
+
+  checkIfAllBalanceNeutral(users: User[]): boolean {
+    let totalBalance = 0;
+    users.forEach(user => {
+      totalBalance += user.balance;
+    })
+
+    return (totalBalance == 0)
   }
 }

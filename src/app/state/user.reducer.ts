@@ -14,7 +14,7 @@ export const userReducer = createReducer(
   initialState,
   on(selectUser, (state, { user }) => ({
     ...state,
-    selectedUser: user,
+    user
   })),
   on(changeUser, (state, { user }) => ({
     ...state, 

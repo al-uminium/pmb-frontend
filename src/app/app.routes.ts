@@ -16,11 +16,10 @@ export const routes: Routes = [
   {
     path: "expenditure/:id", 
     component: DashboardComponent, 
-    children: [
-      {
-        path: "balance", component: BalanceComponent
-      },
-  ]},
+  },
+  {
+    path: "expenditure/:id/balance", component: BalanceComponent
+  },
   {
     path: '**', 
     component: LandingpageComponent

@@ -34,8 +34,8 @@ export class BackendService {
     return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${uid}&${inviteToken}&owes`)
   }
 
-  getPaymentsToSettle(inviteToken: string, uid: string): Observable<{ [username: string]: {[name: string] : number } }> {
-    return this.http.get<{ [username: string]: {[name: string] : number } }>(`${this.getUrl}/settlepayments/${inviteToken}&${uid}`)
+  getPaymentsToSettle(inviteToken: string): Observable<{ [username: string]: {[name: string] : number } }> {
+    return this.http.get<{ [username: string]: {[name: string] : number } }>(`${this.getUrl}/expenditure/${inviteToken}/balance/settlements`)
   }
 
   getUsersOfExpenditure(inviteToken: string): Observable<User[]> {

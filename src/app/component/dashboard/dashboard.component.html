@@ -4,11 +4,16 @@
     <div class="flex gap-2 justify-between items-center">
       <div class="p-3 bg-slate-800 rounded-md">
         <button class="p-2 bg-slate-700 rounded-sm" type="button">Expenses</button>
-        <button class="p-2" type="button">Balances</button>
+        <button class="p-2" type="button" (click)="handleRouteToBalance()">Balances</button>
         <button class="p-2" type="button">Settings</button>
       </div>
-      <div class="w-10 h-10 flex justify-center items-center bg-amber-500 rounded-md">
-        <button type="button"><ng-icon name="heroShare"></ng-icon></button>
+      <div class="max-w-fit h-10 flex justify-center items-center px-2 bg-amber-500 rounded-md">
+        <button class="flex content-center" (click)="toggleUserModal()" type="button">
+          <div class="flex items-center">
+            <ng-icon name="heroUsers"></ng-icon>
+          </div>
+          <div class="pl-1">Change User</div>
+        </button>
       </div>
     </div>
     <div class="bg-slate-800 p-4 rounded-md">
@@ -33,17 +38,17 @@
       }
     </div>
   </div>
-  
-  @if (showExpenseModal) {
-    <app-expense-modal 
-      [usersList]="expenditure.users" 
-      [selectedUser]="selectedUser" 
-      currency={{expenditure.defaultCurrency}}
-      (createExpenseEvent)="setExpenseAfterCreating($event)">
-    </app-expense-modal>
-    <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
-  }
-  
+  @if (selectedUser$ | async; as selectedUser) {
+    @if (showExpenseModal) {
+      <app-expense-modal 
+        [usersList]="expenditure.users" 
+        [selectedUser]="selectedUser" 
+        currency={{expenditure.defaultCurrency}}
+        (createExpenseEvent)="createExpense($event)">
+      </app-expense-modal>
+      <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
+    }
+  } 
   @if (showUserModal) {
     <app-select-user-modal [users]="expenditure.users" (selectUserEvent)="selectUser($event)" ></app-select-user-modal>
     <div class="fixed inset-0 backdrop-blur-sm"></div>
