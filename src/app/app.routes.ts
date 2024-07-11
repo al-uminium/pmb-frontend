@@ -5,9 +5,24 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { BalanceComponent } from './component/balance/balance.component';
 
 export const routes: Routes = [
-  {path: "", component: LandingpageComponent},
-  {path: "expenditure/create", component: ExpenditureFormComponent},
-  {path: "expenditure/:id", component: DashboardComponent},
-  {path: "expenditure/:id/balance", component: BalanceComponent},
-  {path: '**', component: LandingpageComponent}
+  {
+    path: "", 
+    component: LandingpageComponent
+  },
+  {
+    path: "expenditure/create",
+    component: ExpenditureFormComponent
+  },
+  {
+    path: "expenditure/:id", 
+    component: DashboardComponent, 
+    children: [
+      {
+        path: "balance", component: BalanceComponent
+      },
+  ]},
+  {
+    path: '**', 
+    component: LandingpageComponent
+  }
 ];

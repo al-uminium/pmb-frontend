@@ -103,4 +103,8 @@ export class DashboardComponent implements OnInit {
   handleSettlePayments() {
     this.router.navigate(['settlepayments'], { queryParams: {exid: this.inviteToken, uid: this.selectedUser.userId} })
   }
+
+  handleRouteToBalance() {
+    this.router.navigate([`/expenditure/${this.inviteToken}/balance`])
+  }
 }
