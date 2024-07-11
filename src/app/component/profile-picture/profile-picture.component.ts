@@ -11,6 +11,12 @@ export class ProfilePictureComponent {
   @Input()
   username!: string;
 
+  @Input()
+  showUsername: boolean = true;
+
+  @Input()
+  size: string = "normal";
+
   getRGBColor(name: string): string {
     // Convert name to a unique number
     let hash = 0;

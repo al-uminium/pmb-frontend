@@ -22,10 +22,10 @@ export class DashboardComponent implements OnInit {
   inviteToken!: string;
   expenditure!: Expenditure;
   users!: User[]
-  showUserModal: boolean = true;
+  showUserModal: boolean = false;
   selectedUser!: User;
   expenses!: Expense[];
-  showExpenseModal: boolean = true;
+  showExpenseModal: boolean = false;
   selectedUserExpense!: Expense[]
   selectedUserOwedExpense!: Expense[]
 

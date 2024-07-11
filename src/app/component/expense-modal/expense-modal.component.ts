@@ -22,6 +22,9 @@ export class ExpenseModalComponent implements OnInit{
   private readonly utilSvc = inject(UtilService);
 
   form!: FormGroup;
+
+  @Input()
+  expense!: Expense
   
   @Input()
   usersList!: User[]

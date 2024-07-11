@@ -1,22 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Expense } from '../../classes/expenses';
 import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
 import { User } from '../../classes/user';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { heroChevronDoubleRight } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-expense-table',
   standalone: true,
-  imports: [ProfilePictureComponent],
+  imports: [ProfilePictureComponent, NgIconComponent],
+  providers: [provideIcons({ heroChevronDoubleRight })],
   templateUrl: './expense-table.component.html',
   styleUrl: './expense-table.component.css'
 })
-export class ExpenseTableComponent {
+export class ExpenseTableComponent{
   @Input()
   expenses!: Expense[]; 
 
   @Input()
-  mode!: string;
+  currency!: string;
 
   @Input()
   user!: User;
+
+  usersInvolvedWoOwner!: User[]
 }

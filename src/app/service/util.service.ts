@@ -19,7 +19,6 @@ export class UtilService {
     return result;
   }
 
-
   getExpenseSplitFromFormGroup(arr: FormGroup[], users: User[]): { [key: string]: number } {
     const expenseSplit = {} as { [key: string]: number };
     for(let i = 0; i < arr.length; i++) {
@@ -33,28 +32,16 @@ export class UtilService {
     return expenseSplit;
   }
 
-  getExpenseSplitIfSplitEven(total: number, arr: FormGroup[], users: User[]): { [key: string]: number } {
+  getExpenseSplitIfSplitEven(total: number, arr: FormGroup[], users: User[]) {
     const expenseSplit = {} as { [key: string]: number };
     const usersInvolved = this.getUsersInvolved(arr, users);
-    const splitAmt = Number.parseFloat((total / usersInvolved.length).toFixed(2));
+    const splitAmt = Number.parseFloat((total / usersInvolved.length).toFixed(3));
 
     usersInvolved.forEach(user => {
       expenseSplit[user.userName] = splitAmt;
     });
     return expenseSplit;
   }
-
-  // getExpenseSplit(arr: FormArray, users: User[]): { [key: string]: number } {
-  //   const expenseSplit = {} as { [key: string]: number };
-
-  //   for (let i = 0; i < arr.controls.length; i++) {
-  //     const balance = arr.controls[i].value;
-  //     const user = users[i];
-  //     expenseSplit[user.userName] = balance * 1;
-      
-  //   }
-  //   return expenseSplit;
-  // }
 
   getUsersInvolved(arr: FormGroup[], users: User[]): User[] {
     const usersInvolved = new Array<User>;
