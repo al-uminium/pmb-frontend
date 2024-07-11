@@ -3,7 +3,7 @@ import { User } from '../../classes/user';
 import { BackendService } from '../../service/backend.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
+import { ProfilePictureComponent } from '../utility/profile-picture/profile-picture.component';
 
 @Component({
   selector: 'app-select-user-modal',

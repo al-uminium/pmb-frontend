@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroUserPlus, heroXCircle, heroXMark } from '@ng-icons/heroicons/outline';
 import { UtilService } from '../../service/util.service';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { DropdownComponent } from '../utility/dropdown/dropdown.component';
 import { BackendService } from '../../service/backend.service';
 import { Expenditure } from '../../classes/expenditure';
 

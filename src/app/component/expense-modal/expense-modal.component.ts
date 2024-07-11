@@ -6,7 +6,7 @@ import { heroCheck, heroUserPlus, heroXMark } from '@ng-icons/heroicons/outline'
 import { User } from '../../classes/user';
 import { UtilService } from '../../service/util.service';
 import { Expense } from '../../classes/expenses';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { DropdownComponent } from '../utility/dropdown/dropdown.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

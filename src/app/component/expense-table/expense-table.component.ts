@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Expense } from '../../classes/expenses';
-import { ProfilePictureComponent } from '../profile-picture/profile-picture.component';
+import { ProfilePictureComponent } from '../utility/profile-picture/profile-picture.component';
 import { User } from '../../classes/user';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroChevronDoubleRight } from '@ng-icons/heroicons/outline';
