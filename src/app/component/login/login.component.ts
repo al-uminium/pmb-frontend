@@ -11,7 +11,7 @@ import { loginUser, selectUser } from '../../state/user.actions';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, StoreModule],
+  imports: [ReactiveFormsModule, RouterModule, StoreModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit{
   private readonly store = inject(Store)
 
   form!: FormGroup
-  loginUser$!: Observable<User>;
   isLoginFailed: boolean = false;
 
   ngOnInit(): void {
@@ -44,8 +43,7 @@ export class LoginComponent implements OnInit{
     const user = new User('');
     user.email = this.email?.value;
     user.pw = this.password?.value;
-    this.loginUser$ = this.bkSvc.postLogin(user);
-    this.loginUser$.subscribe((user) => {
+    this.bkSvc.postLogin(user).subscribe((user) => {
       if (user.userId) {
         this.store.dispatch(selectUser({ user: user }));
         this.store.dispatch(loginUser({ user: user }));

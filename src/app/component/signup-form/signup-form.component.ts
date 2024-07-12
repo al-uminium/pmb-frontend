@@ -1,19 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { User } from '../../classes/user';
 import { BackendService } from '../../service/backend.service';
+import { Store, StoreModule } from '@ngrx/store';
+import { loginUser, selectUser } from '../../state/user.actions';
 
 @Component({
   selector: 'app-signup-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, StoreModule],
   templateUrl: './signup-form.component.html',
   styleUrl: './signup-form.component.css'
 })
 export class SignupFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly bkSvc = inject(BackendService);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
 
   form!: FormGroup
 
@@ -41,7 +45,12 @@ export class SignupFormComponent implements OnInit {
     const user = new User(this.username?.value);
     user.pw = this.password?.value;
     user.email = this.email?.value; 
-    console.log(user);
-    this.bkSvc.createUser(user).subscribe((data) => console.log(data))
+    this.bkSvc.createUser(user).subscribe((user) => {
+      this.store.dispatch(selectUser({ user: user }));
+      this.store.dispatch(loginUser({ user: user }));
+      localStorage.setItem('selectedUser', JSON.stringify({ user }));
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
+      this.router.navigate(['user']);
+    })
   }
 }
