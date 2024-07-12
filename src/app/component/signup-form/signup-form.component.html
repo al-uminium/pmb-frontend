@@ -5,7 +5,7 @@
       <label for="username">
         Username
       </label>
-      <input type="text" name="username" id="username" formControlName="username">
+      <input type="text" name="username" id="username" class="bg-inherit" formControlName="username">
       @if (username.touched && username.errors?.['required']) {
         <div>
           Your username is required!
@@ -21,7 +21,7 @@
       <label for="password">
         Password
       </label>
-      <input type="text" name="password" id="password" formControlName="password">
+      <input type="text" name="password" id="password" class="bg-inherit" formControlName="password">
       @if (password.touched && password.errors?.['required']) {
         Password is required!
       }
@@ -30,7 +30,7 @@
       <label for="email">
         Email
       </label>
-      <input type="text" name="email" id="email" formControlName="email">
+      <input type="text" name="email" id="email" class="bg-inherit" formControlName="email">
       @if (email.touched && email.errors?.['required']) {
         E-mail is required!
       }

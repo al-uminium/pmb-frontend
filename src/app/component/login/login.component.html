@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div>
+  <div>Login</div>
+  <form action="" [formGroup]="form">
+    <div>
+      <label for="email">Email</label>
+      <input type="text" id="email" class="bg-inherit" formControlName="email">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" class="bg-inherit" formControlName="password">
+    </div>
+    @if (isLoginFailed) {
+      Incorrect e-mail or password. 
+    }
+    <button type="submit" (click)="handleLogin()">Login</button>
+  </form>
+</div>

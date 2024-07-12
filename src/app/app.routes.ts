@@ -5,6 +5,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { BalanceComponent } from './component/balance/balance.component';
 import { SignupFormComponent } from './component/signup-form/signup-form.component';
 import { LoginComponent } from './component/login/login.component';
+import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'user',
+    component: UserDashboardComponent
   },
   {
     path: '**', 

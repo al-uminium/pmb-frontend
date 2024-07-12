@@ -49,4 +49,8 @@ export class BackendService {
   getBalanceOfExpenditure(inviteToken: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.getUrl}/expenditure/${inviteToken}/balance`)
   }
+
+  postLogin(user: User): Observable<User> {
+    return this.http.post<User>(`${this.postUrl}/login`, user);
+  }
 }
