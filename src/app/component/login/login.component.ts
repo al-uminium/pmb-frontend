@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit{
   private readonly store = inject(Store)
 
   form!: FormGroup
-  selectedUser$!: Observable<User | null>;
   loginUser$!: Observable<User>;
   isLoginFailed: boolean = false;
 

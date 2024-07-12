@@ -73,5 +73,25 @@ export class UtilService {
     
   }
   
+  getUserIdFromLocalStorage(): string {
+    const storedUser = localStorage.getItem('selectedUser');
+    if (storedUser) {
+      const userJson = JSON.parse(storedUser);
+      return userJson.user.userId;
+    } else {
+      return '';
+    }
+  }
 
+  getUserFromLocalStorage(): User {
+    const storedUser = localStorage.getItem('selectedUser');
+    const user = new User('');
+    if (storedUser) {
+      const userJson = JSON.parse(storedUser);
+      user.userName = userJson.user.userName;
+      user.userId = userJson.user.userId;
+      return user
+    }
+    return user
+  }
 }

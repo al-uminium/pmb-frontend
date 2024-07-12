@@ -1,1 +1,9 @@
-<p>user-dashboard works!</p>
+<div>
+  @if (selectedUser$ | async; as selectedUser) {
+    <div>Welcome {{ selectedUser.userName }}!</div>
+    <div>
+      Link your paypal account
+      <app-paypal-login></app-paypal-login>
+    </div>
+  }
+</div>

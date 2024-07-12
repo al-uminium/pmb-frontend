@@ -14,6 +14,7 @@ import { selectUser } from '../../state/user.actions';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { selectSelectedUser } from '../../state/user.selectors';
+import { UtilService } from '../../service/util.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly bkSvc = inject(BackendService);
   private readonly store = inject(Store);
+  private readonly util = inject(UtilService)
 
   expenditure$!: Observable<Expenditure>;
   selectedUser$!: Observable<User | null>;
@@ -90,15 +92,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onPageLoad(expenditure: Expenditure) {
-    const storedUser = localStorage.getItem('selectedUser');
-    if (storedUser) {
-      const userObj = JSON.parse(storedUser);
-      expenditure.users.forEach(expenditureUser => {
-        const user = expenditureUser as User;
-        if (userObj.user.userId == expenditureUser.userId) {
-          this.selectUser(user)
-        } 
-      })
-    }
+    const storedUserId = this.util.getUserIdFromLocalStorage();
+    expenditure.users.forEach(expenditureUser => {
+      const user = expenditureUser as User;
+      if (storedUserId == expenditureUser.userId) {
+        this.selectUser(user)
+      } 
+    })
   }
 }
