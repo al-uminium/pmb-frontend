@@ -10,5 +10,5 @@ import { LandingpageComponent } from './component/landingpage/landingpage.compon
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'ppm-frontend';
+  title = 'Pay Me Back';
 }

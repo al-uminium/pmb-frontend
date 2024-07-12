@@ -9,11 +9,12 @@ import { selectLoginUser } from '../../state/user.selectors';
 import { UtilService } from '../../service/util.service';
 import { selectUser } from '../../state/user.actions';
 import { PaypalLoginComponent } from '../paypal-login/paypal-login.component';
+import { PaypalPayComponent } from '../paypal-pay/paypal-pay.component';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [RouterModule, CommonModule, StoreModule, PaypalLoginComponent],
+  imports: [RouterModule, CommonModule, StoreModule, PaypalLoginComponent, PaypalPayComponent],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.css'
 })

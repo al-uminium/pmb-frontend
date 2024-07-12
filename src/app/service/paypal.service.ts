@@ -13,4 +13,12 @@ export class PaypalService {
   getLinkPaypalAccount(): Observable<any> {
     return this.http.get(`${this.paypalApi}/link-account`);
   }
+
+  createOrder(amount: string, payeeEmail: string): Observable<any> {
+    return this.http.post(`${this.paypalApi}/create-order`, { amount, payeeEmail })
+  }
+
+  captureOrder(orderId: string, payerId: string): Observable<any> {
+    return this.http.post(`${this.paypalApi}/capture-order`, { orderId, payerId })
+  }
 }
