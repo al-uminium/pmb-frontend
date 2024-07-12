@@ -21,6 +21,10 @@ export class BackendService {
     return this.http.post<Expense>(`${this.postUrl}/expense/${path}`, expense)
   }
 
+  createUser(user: User): Observable<any> {
+    return this.http.post<User>(`${this.postUrl}/register`, user)
+  }
+
   getExpenditureDetails(inviteToken: string): Observable<Expenditure> {
     return this.http.get<Expenditure>(`${this.getUrl}/expenditure/${inviteToken}`)
   }

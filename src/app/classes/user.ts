@@ -2,6 +2,8 @@ export class User {
   userName!: string;
   userId!: string; 
   balance!: number;
+  pw!: string;
+  email!: string;
 
   constructor(userName: string) {
     this.userName = userName;

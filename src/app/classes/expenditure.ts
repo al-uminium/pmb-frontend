@@ -1,8 +1,7 @@
-import { IExpenditure } from "../interface/iexpenditure";
 import { Expense } from "./expenses";
 import { User } from "./user";
 
-export class Expenditure implements IExpenditure{
+export class Expenditure {
   expenditureName!: string;
   users!: User[];
   defaultCurrency!: string;

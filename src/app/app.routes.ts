@@ -3,6 +3,8 @@ import { LandingpageComponent } from './component/landingpage/landingpage.compon
 import { ExpenditureFormComponent } from './component/expenditure-form/expenditure-form.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { BalanceComponent } from './component/balance/balance.component';
+import { SignupFormComponent } from './component/signup-form/signup-form.component';
+import { LoginComponent } from './component/login/login.component';
 
 export const routes: Routes = [
   {
@@ -21,7 +23,15 @@ export const routes: Routes = [
     path: "expenditure/:id/balance", component: BalanceComponent
   },
   {
+    path: 'register',
+    component: SignupFormComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: '**', 
     component: LandingpageComponent
-  }
+  },
 ];

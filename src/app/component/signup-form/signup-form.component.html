@@ -1,0 +1,43 @@
+<div class="flex-1 max-w-screen-md w-full mx-auto px-4 py-6 flex flex-col gap-6">
+  <h1 class="text-4xl text-slate-300 font-oswald">Register</h1>
+  <form action="" [formGroup]="form">
+    <div>
+      <label for="username">
+        Username
+      </label>
+      <input type="text" name="username" id="username" formControlName="username">
+      @if (username.touched && username.errors?.['required']) {
+        <div>
+          Your username is required!
+        </div>
+      }
+      @if (username.touched && username.errors?.['pattern']) {
+        <div>
+          Only alphanumeric letters are allowed.
+        </div>
+      }
+    </div>
+    <div>
+      <label for="password">
+        Password
+      </label>
+      <input type="text" name="password" id="password" formControlName="password">
+      @if (password.touched && password.errors?.['required']) {
+        Password is required!
+      }
+    </div>
+    <div>
+      <label for="email">
+        Email
+      </label>
+      <input type="text" name="email" id="email" formControlName="email">
+      @if (email.touched && email.errors?.['required']) {
+        E-mail is required!
+      }
+      @if (email.touched && email.errors?.['email']) {
+        Invalid e-mail format.
+      }
+    </div>
+    <button type="submit" (click)="handleOnRegister()" >Register</button>
+  </form>
+</div>

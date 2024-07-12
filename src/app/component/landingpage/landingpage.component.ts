@@ -11,7 +11,15 @@ import { Router, RouterModule } from '@angular/router';
 export class LandingpageComponent {
   private readonly router = inject(Router);
 
-  onCreateExpeditionClick(): void {
+  routeToCreateExpedition(): void {
     this.router.navigate(["/expenditure/create"]);
+  }
+
+  routeToLogin(): void {
+    this.router.navigate(["/login"]);
+  }
+
+  routeToRegister(): void {
+    this.router.navigate(["/register"])
   }
 }
