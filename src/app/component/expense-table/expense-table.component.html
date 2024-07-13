@@ -6,16 +6,8 @@
 
         <div class="flex font-extralight text-sm text-slate-300">
           <div>
-            {{ expense.expenseOwner.userName }} paid for&nbsp;
+            {{ generateExpenseSummary(expense) }}
           </div>
-          @for (user of expense.usersInvolved; track $index) {
-            @if (user.userName != expense.expenseOwner.userName) {
-              {{ user.userName }} 
-            }
-            @if (!($index == 0 || $index == (expense.usersInvolved.length - 1))) {
-              ,
-            }
-          }
         </div>
 
       </div>
@@ -31,28 +23,3 @@
     </li>
   }
 </ul>
-
-<!-- <table class="font-roboto w-full h-full table-auto border-collapse">
-  <tr>
-    <th>Expense Name</th>
-    <th>Total Cost</th>
-    <th>Who paid...</th>
-    <th>Users involved</th>
-  </tr>
-  @for (expense of expenses; track $index) {
-    <tr>
-      <td class="py-4">{{ expense.expenseName }}</td>
-      <td class="py-4">{{ expense.totalCost }}</td>
-      <td class="py-4"><app-profile-picture [username]="expense.expenseOwner.userName"></app-profile-picture></td>
-      <td class="py-4">
-        <ul>
-          @for (user of expense.usersInvolved; track $index) {
-            <li class="py-1">
-              <td><app-profile-picture [username]="user.userName"></app-profile-picture></td>
-            </li>
-          }
-        </ul>
-      </td>
-    </tr>
-  }
-</table> -->

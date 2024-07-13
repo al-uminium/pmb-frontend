@@ -14,6 +14,9 @@ import { ProfilePictureComponent } from '../utility/profile-picture/profile-pict
 })
 export class SelectUserModalComponent{
   @Input()
+  text!: string
+
+  @Input()
   users!: User[]
 
   @Output() 

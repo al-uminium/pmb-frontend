@@ -1,4 +1,32 @@
-<div>
+<div class="flex-1 max-w-screen-md w-full mx-auto px-4 py-6 flex flex-col gap-6">
+ @if (authUser$ | async; as authUser) {
+  <div>Hello, {{ authUser.userName }}!</div>
+ }
+ <div>
+  <div>
+    Your Linked Expenditures
+  </div>
+  <div>
+    <a href="/expenditure/create">Create Expenditure</a>
+  </div>
+ </div>
+ @if (expenditures$ | async; as expenditures) {
+   <div>
+    @if (expenditures.length > 0) {
+      @for (expenditure of expenditures; track $index) {
+        <a [href]="generateUrlForExpenditure(expenditure)">{{ expenditure.expenditureName }}</a>
+      }
+    } @else {
+      <div>
+        Looks like you don't have an expenditure yet.
+      </div>
+    }
+   </div>
+ }
+</div>
+
+
+<!-- <div>
   @if (selectedUser$ | async; as selectedUser) {
     <div>Welcome {{ selectedUser.userName }}!</div>
     <div>
@@ -10,4 +38,4 @@
       <app-paypal-pay></app-paypal-pay>
     </div>
   }
-</div>
+</div> -->

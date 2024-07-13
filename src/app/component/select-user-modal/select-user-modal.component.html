@@ -1,13 +1,11 @@
 <div class="bg-slate-800 shadow-2xl rounded-md max-w-screen-sm top-20 left-2/4 -translate-x-1/2 px-20 py-8 z-50 fixed">
   <div class="font-roboto text-2xl font-light text-slate-300 mb-2">
-    Choose who you're viewing the expenses as!
+    {{ text }}
   </div>
   @for (user of users; track $index) {
     <ul>
-      <li class="cursor-pointer w-56 hover:bg-amber-500 rounded-md">
-        <button class="font-oswald my-1 rounded-sm p-2" (click)="selectUser(user)">
-          <app-profile-picture [username]="user.userName" ></app-profile-picture>
-        </button>
+      <li class="cursor-pointer w-56 hover:bg-amber-500 font-oswald my-1 rounded-md p-2" (click)="selectUser(user)">
+        <app-profile-picture [username]="user.userName" ></app-profile-picture>
       </li>
     </ul>
   }

@@ -46,9 +46,8 @@ export class SignupFormComponent implements OnInit {
     user.pw = this.password?.value;
     user.email = this.email?.value; 
     this.bkSvc.createUser(user).subscribe((user) => {
-      this.store.dispatch(selectUser({ user: user }));
       this.store.dispatch(loginUser({ user: user }));
-      localStorage.setItem('selectedUser', JSON.stringify({ user }));
+      localStorage.setItem('authUser', JSON.stringify({ user }));
       localStorage.setItem('isLoggedIn', JSON.stringify(true));
       this.router.navigate(['user']);
     })

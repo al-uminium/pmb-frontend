@@ -24,4 +24,23 @@ export class ExpenseTableComponent{
   user!: User;
 
   usersInvolvedWoOwner!: User[]
+
+  generateExpenseSummary(exp: Expense): string {
+    const usersInvolvedExcludeOwner = [] as User[]
+    exp.usersInvolved.forEach(user => {
+      if (!(user.userId == exp.expenseOwner.userId)) {
+        usersInvolvedExcludeOwner.push(user);
+      }
+    });
+    let text = `${exp.expenseOwner.userName} paid for `
+    for (let i = 0; i < usersInvolvedExcludeOwner.length; i++) {
+      const userName = usersInvolvedExcludeOwner[i].userName;
+      if ((i === 0)) {
+        text = text + ` ${userName}`
+      } else {
+        text = text + `, ${userName}`
+      }
+    }
+    return text;
+  }
 }

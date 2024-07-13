@@ -8,12 +8,12 @@ import { SelectUserModalComponent } from '../select-user-modal/select-user-modal
 import { Expense } from '../../classes/expenses';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroPlus, heroShare, heroUsers } from '@ng-icons/heroicons/outline';
+import { heroLink, heroPlus, heroShare, heroUsers } from '@ng-icons/heroicons/outline';
 import { select, Store, StoreModule } from '@ngrx/store';
-import { selectUser } from '../../state/user.actions';
+import { loginUser, selectUser } from '../../state/user.actions';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { selectSelectedUser } from '../../state/user.selectors';
+import { selectAuthUser, selectSelectedUser } from '../../state/user.selectors';
 import { UtilService } from '../../service/util.service';
 
 @Component({
@@ -28,7 +28,7 @@ import { UtilService } from '../../service/util.service';
     StoreModule
   ],
   providers: [
-    provideIcons({ heroUsers, heroPlus })
+    provideIcons({ heroUsers, heroPlus, heroLink })
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -42,10 +42,12 @@ export class DashboardComponent implements OnInit {
 
   expenditure$!: Observable<Expenditure>;
   selectedUser$!: Observable<User | null>;
+  authUser$!: Observable<User | null>;
 
   inviteToken!: string;
   showUserModal: boolean = true;
   showExpenseModal: boolean = false;
+  showLinkModal: boolean = false;
   selectedUserExpense!: Expense[]
   selectedUserOwedExpense!: Expense[]
 
@@ -58,7 +60,8 @@ export class DashboardComponent implements OnInit {
       this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
       this.expenditure$.subscribe(expenditure => {
         this.onPageLoad(expenditure);
-        this.selectedUser$ = this.store.pipe(select(selectSelectedUser))
+        this.selectedUser$ = this.store.pipe(select(selectSelectedUser));
+        this.authUser$ = this.store.pipe(select(selectAuthUser));
       })
     });
   }
@@ -71,10 +74,27 @@ export class DashboardComponent implements OnInit {
     this.showExpenseModal = !this.showExpenseModal;
   }
 
+  toggleLinkModal(): void {
+    this.showLinkModal = !this.showLinkModal;
+  }
+
+  generateLinkModalText(user: User) : string {
+    return `You are currently logged in as ${user?.userName}. Who do you want to link as?`
+  }
+
   selectUser(user: User): void {
     this.store.dispatch(selectUser({ user: user }));
     localStorage.setItem('selectedUser', JSON.stringify({ user }));
     this.toggleUserModal();
+  }
+
+  linkUser(selectedUser: User, loginUser: User): void {
+    console.log(selectedUser);
+    console.log(loginUser);
+    this.bkSvc.updateLinkedUser(loginUser, selectedUser).subscribe(() => {
+      console.log("wee");
+    });
+    this.toggleLinkModal()
   }
 
   createExpense(expense: Expense) {
@@ -93,6 +113,11 @@ export class DashboardComponent implements OnInit {
 
   onPageLoad(expenditure: Expenditure) {
     const storedUserId = this.util.getUserIdFromLocalStorage();
+    const authUser = this.util.getAuthUserFromLocalStorage();
+    if (authUser) {
+      this.store.dispatch(loginUser({ user: authUser }))
+    }
+
     expenditure.users.forEach(expenditureUser => {
       const user = expenditureUser as User;
       if (storedUserId == expenditureUser.userId) {

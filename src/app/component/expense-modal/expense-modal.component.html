@@ -39,12 +39,11 @@
               <li [formGroup]="control" class="flex h-14 justify-between items-center py-2">
                 <div class="flex items-center">
                   <input 
-                    class="relative peer appearance-none w-4 h-4 border-2 rounded-sm border-amber-500 shrink checked:bg-amber-500 cursor-pointer bg-white" 
+                    class="accent-amber-400" 
                     type="checkbox"
                     (click)="toggle(control)"
                     [formControlName]="'checked'"
                     [id]="usersList[$index].userId">
-                  <ng-icon class="absolute hidden pointer-events-none peer-checked:block" name="heroCheck"></ng-icon>
                   <label class="pl-2" [for]="usersList[$index].userId">{{ usersList[$index].userName }}</label>
                 </div>
                 @if (!isSplitEven) {

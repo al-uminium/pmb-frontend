@@ -5,11 +5,12 @@ import { select, Store, StoreModule } from '@ngrx/store';
 import { BackendService } from '../../service/backend.service';
 import { Observable } from 'rxjs';
 import { User } from '../../classes/user';
-import { selectLoginUser } from '../../state/user.selectors';
 import { UtilService } from '../../service/util.service';
-import { selectUser } from '../../state/user.actions';
+import { loginUser, selectUser } from '../../state/user.actions';
 import { PaypalLoginComponent } from '../paypal-login/paypal-login.component';
 import { PaypalPayComponent } from '../paypal-pay/paypal-pay.component';
+import { Expenditure } from '../../classes/expenditure';
+import { selectAuthUser } from '../../state/user.selectors';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -23,18 +24,31 @@ export class UserDashboardComponent implements OnInit{
   private readonly store = inject(Store)
   private readonly router = inject(Router)
   private readonly util = inject(UtilService)
+  private readonly url = "http://localhost:4200/expenditure"
 
-  selectedUser$!: Observable<User | null>;
+  authUser$!: Observable<User | null>;
+  expenditures$!: Observable<Expenditure[]>
+  authUser!: User;
 
   ngOnInit(): void {
-    this.onPageLoad()
-    this.selectedUser$ = this.store.pipe(select(selectLoginUser));
+    this.onPageLoad();
+    this.authUser$ = this.store.pipe(select(selectAuthUser));
+    this.authUser$.subscribe((user) => {
+      console.log(user);
+      this.authUser = user as User
+    });
+    this.expenditures$ = this.bkSvc.getExpenditureForUser(this.authUser);
+    this.expenditures$.subscribe((data) => console.log(data));
   }
 
   onPageLoad() {
-    const user = this.util.getUserFromLocalStorage()
-    if (user.userId.length > 0) {
-      this.store.dispatch(selectUser({ user }));
+    const authUser = this.util.getAuthUserFromLocalStorage();
+    if (authUser) {
+      this.store.dispatch(loginUser({ user: authUser }))
     }
+  }
+
+  generateUrlForExpenditure(ex : Expenditure): string {
+    return `${this.url}/${ex.inviteToken}`;
   }
 }

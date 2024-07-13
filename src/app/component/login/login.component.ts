@@ -6,12 +6,13 @@ import { BackendService } from '../../service/backend.service';
 import { User } from '../../classes/user';
 import { Observable } from 'rxjs';
 import { Store, StoreModule } from '@ngrx/store';
-import { loginUser, selectUser } from '../../state/user.actions';
+import { selectAuthUser } from '../../state/user.selectors';
+import { loginUser } from '../../state/user.actions';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, StoreModule],
+  imports: [ReactiveFormsModule, RouterModule, StoreModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -45,9 +46,9 @@ export class LoginComponent implements OnInit{
     user.pw = this.password?.value;
     this.bkSvc.postLogin(user).subscribe((user) => {
       if (user.userId) {
-        this.store.dispatch(selectUser({ user: user }));
-        this.store.dispatch(loginUser({ user: user }));
-        localStorage.setItem('selectedUser', JSON.stringify({ user }));
+        console.log(user);
+        this.store.dispatch(loginUser({ user: user }))
+        localStorage.setItem('authUser', JSON.stringify({ user }));
         localStorage.setItem('isLoggedIn', JSON.stringify(true));
         this.router.navigate(['user']);
       } else {

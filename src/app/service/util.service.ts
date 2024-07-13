@@ -83,8 +83,8 @@ export class UtilService {
     }
   }
 
-  getUserFromLocalStorage(): User {
-    const storedUser = localStorage.getItem('selectedUser');
+  getAuthUserFromLocalStorage(): User {
+    const storedUser = localStorage.getItem('authUser');
     const user = new User('');
     if (storedUser) {
       const userJson = JSON.parse(storedUser);

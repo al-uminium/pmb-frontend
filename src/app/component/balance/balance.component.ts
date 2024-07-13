@@ -62,7 +62,7 @@ export class BalanceComponent implements OnInit {
   checkIfAllBalanceNeutral(users: User[]): boolean {
     let totalBalance = 0;
     users.forEach(user => {
-      totalBalance += user.balance;
+      totalBalance += Math.abs(user.balance );
     })
 
     return (totalBalance == 0)

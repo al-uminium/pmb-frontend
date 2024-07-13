@@ -12,6 +12,7 @@ export class BackendService {
   private readonly http = inject(HttpClient);
   private readonly postUrl = "http://localhost:8080/api/post"
   private readonly getUrl = "http://localhost:8080/api/get"
+  private readonly patchUrl = "http://localhost:8080/api/patch"
 
   createExpenditure(expenditure: Expenditure): Observable<any> {
     return this.http.post<Expenditure>( `${this.postUrl}/initializeexpenditure`, expenditure)
@@ -29,6 +30,9 @@ export class BackendService {
     return this.http.get<Expenditure>(`${this.getUrl}/expenditure/${inviteToken}`)
   }
 
+  getExpenditureForUser(user: User): Observable<Expenditure[]> {
+    return this.http.get<Expenditure[]>(`${this.getUrl}/user/${user.userId}`)
+  }
 
   getExpensesForOwner(inviteToken: string, ownerId: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(`${this.getUrl}/expenditure/expenses/user/${ownerId}&${inviteToken}`)
@@ -48,6 +52,10 @@ export class BackendService {
 
   getBalanceOfExpenditure(inviteToken: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.getUrl}/expenditure/${inviteToken}/balance`)
+  }
+
+  updateLinkedUser(loginUser: User, selectedUser: User): Observable<any> {
+    return this.http.post(`${this.postUrl}/link-account`, [loginUser, selectedUser])
   }
 
   postLogin(user: User): Observable<User> {
