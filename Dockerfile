@@ -1,29 +1,29 @@
-# Use the official Node.js image as the base image
+# Stage 1: Build the Angular application
 FROM node:18 AS build
 
-# Set the working directory in the Docker container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy the package.json and package-lock.json (or yarn.lock) files
+# Copy the package.json and package-lock.json
 COPY package*.json ./
 
-# Install the dependencies
+# Install the Angular CLI and app dependencies
+RUN npm install -g @angular/cli
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the Angular application source code to the container
 COPY . .
 
 # Build the Angular application
-RUN npm run build --prod
+RUN ng build --prod
 
-# Use the official Nginx image to serve the built Angular app
+# Stage 2: Serve the Angular application with NGINX
 FROM nginx:alpine
 
-# Copy the built Angular app from the previous stage
-COPY --from=build /usr/src/app/dist/your-angular-app /usr/share/nginx/html
+# Copy the built Angular app from the build stage to the nginx server
+COPY --from=build /app/dist/ppm-frontend /usr/share/nginx/html
 
-# Expose port 80 to access the app
+# Expose the port that the application will run on
 EXPOSE 80
 
-# Start the Nginx server
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]

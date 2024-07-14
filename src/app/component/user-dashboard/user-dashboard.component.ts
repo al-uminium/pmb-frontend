@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { User } from '../../classes/user';
 import { UtilService } from '../../service/util.service';
 import { loginUser, selectUser } from '../../state/user.actions';
-import { PaypalLoginComponent } from '../paypal-login/paypal-login.component';
-import { PaypalPayComponent } from '../paypal-pay/paypal-pay.component';
+import { PaypalLoginComponent } from '../paypal/paypal-login/paypal-login.component';
+import { PaypalPayComponent } from '../paypal/paypal-pay/paypal-pay.component';
 import { Expenditure } from '../../classes/expenditure';
 import { selectAuthUser } from '../../state/user.selectors';
 
@@ -22,7 +22,6 @@ import { selectAuthUser } from '../../state/user.selectors';
 export class UserDashboardComponent implements OnInit{
   private readonly bkSvc = inject(BackendService);
   private readonly store = inject(Store)
-  private readonly router = inject(Router)
   private readonly util = inject(UtilService)
   private readonly url = "http://localhost:4200/expenditure"
 

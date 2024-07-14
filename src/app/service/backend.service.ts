@@ -10,9 +10,10 @@ import { User } from '../classes/user';
 })
 export class BackendService {
   private readonly http = inject(HttpClient);
-  private readonly postUrl = "http://localhost:8080/api/post"
-  private readonly getUrl = "http://localhost:8080/api/get"
-  private readonly patchUrl = "http://localhost:8080/api/patch"
+  private readonly dev_url = "http://localhost:8080"
+  private readonly prod_url = "https://ppm-backend-production.up.railway.app"
+  private readonly postUrl = `${this.dev_url}/api/post`
+  private readonly getUrl = `${this.dev_url}/api/get`
 
   createExpenditure(expenditure: Expenditure): Observable<any> {
     return this.http.post<Expenditure>( `${this.postUrl}/initializeexpenditure`, expenditure)

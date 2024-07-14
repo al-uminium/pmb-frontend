@@ -17,12 +17,12 @@
             <app-profile-picture [username]="user.userName"></app-profile-picture>
           </div>
           @if (user.balance < 0) {
-            <div class="self-center text-rose-500 font-bold">
-              {{ user.balance }}
+            <div class="self-center text-rose-500">
+              {{ user.balance }} {{ expenditure.defaultCurrency }}
             </div>
           } @else {
-            <div class="self-center text-lime-400 font-bold">
-              {{ user.balance }}
+            <div class="self-center text-lime-400">
+              {{ user.balance }} {{ expenditure.defaultCurrency }}
             </div>
           }
         </div>

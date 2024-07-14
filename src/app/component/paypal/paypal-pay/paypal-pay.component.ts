@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { PaypalService } from '../../service/paypal.service';
+import { PaypalService } from '../../../service/paypal.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({

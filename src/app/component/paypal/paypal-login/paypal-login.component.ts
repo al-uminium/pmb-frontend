@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { PaypalService } from '../../service/paypal.service';
+import { PaypalService } from '../../../service/paypal.service';
 
 
 @Component({
