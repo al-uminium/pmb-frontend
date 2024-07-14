@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { Expenditure } from '../classes/expenditure';
 import { Expense } from '../classes/expenses';
 import { User } from '../classes/user';
+import { environment as environmentDev } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
   private readonly http = inject(HttpClient);
-  private readonly dev_url = "http://localhost:8080"
-  private readonly prod_url = "https://ppm-backend-production.up.railway.app"
-  private readonly postUrl = `${this.dev_url}/api/post`
-  private readonly getUrl = `${this.dev_url}/api/get`
+  private readonly postUrl = environment.production ? `${environment.prodUrl}/api/post` : `${environmentDev.devUrl}/api/post`
+  private readonly getUrl = environment.production ? `${environment.prodUrl}/api/get` : `${environmentDev.devUrl}/api/get`
 
   createExpenditure(expenditure: Expenditure): Observable<any> {
     return this.http.post<Expenditure>( `${this.postUrl}/initializeexpenditure`, expenditure)

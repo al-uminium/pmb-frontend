@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../classes/user';
+import { environment as environmentDev } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaypalService {
   private readonly http = inject(HttpClient)
-  private readonly dev_url = "http://localhost:8080"  
-  private readonly prod_url = "https://ppm-backend-production.up.railway.app"
-  private readonly paypalApi = `${this.dev_url}/api/paypal`
+  private readonly paypalApi = environment.production ? `${environment.prodUrl}/api/paypal` : `${environmentDev.devUrl}/api/paypal`
 
   getLinkPaypalAccount(): Observable<any> {
     return this.http.get(`${this.paypalApi}/link-account`);
