@@ -1,4 +1,4 @@
-<div class="flex-1 max-w-screen-md w-full mx-auto px-4 py-6 flex flex-col gap-6">
+<div class="flex-1 max-w-screen-md w-full mx-auto px-4 pt-20 flex flex-col gap-6">
   <h1 class="text-4xl text-slate-300 font-oswald">Create Expenditure</h1>
   <form [formGroup]="form" action="" (ngSubmit)="onSubmit()">
     <div class="p-6 bg-slate-800 rounded-md box-border">
@@ -47,6 +47,6 @@
         <div class="text-sm font-light font-roboto pl-1" type="button">Add user</div>
        </button>
     </div>
-    <button [disabled]="!form.valid"  class="mt-5 font-roboto rounded-md font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 " type="submit">Create Expenditure</button>
+    <button [disabled]="!form.valid"  class="mt-5 font-roboto rounded-md font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-40 h-12 mb-4" type="submit">Create Expenditure</button>
   </form>
 </div>
