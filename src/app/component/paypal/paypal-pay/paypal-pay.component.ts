@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { PaypalService } from '../../../service/paypal.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
@@ -16,30 +16,25 @@ export class PaypalPayComponent implements OnInit{
 
   orderId!: string
   payerId: string = 'A6EDG96W5TGXG';
+  
+  @Input()
+  payeeEmail!: string;
+
+  @Input()
+  amt!: number;
+
+  @Input()
+  inviteToken!: string
 
   ngOnInit(): void {
     this.actRoute.queryParams.subscribe(params => {
       this.orderId = params['paymentId'];
-
     })
   }
 
   pay() {
-    const amt = '10.00';
-    const payeeEmail = 'sb-y7hpg31645170@personal.example.com' //personal account
-
-    this.paypalSvc.createOrder(amt, payeeEmail).subscribe((response: any) => {
+    this.paypalSvc.createOrder(this.amt, this.payeeEmail, this.inviteToken).subscribe((response: any) => {
       window.location.href = response.approvalUrl
-    })
-  }
-
-  capturePayment(orderId: string, payerId: string) {
-    this.paypalSvc.captureOrder(orderId, payerId).subscribe((response: any) => {
-      if (response.status === 'approved') {
-        alert(`Payment Successful!`);
-      } else {
-        alert('Payment failed :(');
-      }
     })
   }
 }

@@ -4,6 +4,7 @@ export class User {
   balance!: number;
   pw!: string;
   email!: string;
+  paypalEmail!: string; 
 
   constructor(userName: string) {
     this.userName = userName;

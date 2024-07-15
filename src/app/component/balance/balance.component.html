@@ -31,6 +31,7 @@
     <div class="bg-slate-800 p-4 rounded-md">
       <div class="text-2xl pb-5">Settlements</div>
       @if (settlements$ | async; as settlements) {
+        <!-- this is super ugly but it works, might try to think of a way to make it simpler in the future -->
         @for (user of expenditure.users; track $index) {
           @for (personYouOwe of expenditure.users; track $index) {
             @if (settlements[user.userName][personYouOwe.userName] < 0) {
@@ -46,6 +47,12 @@
                         (click)="handleRepay(selectedUser, personYouOwe, settlements[selectedUser.userName][personYouOwe.userName]*-1)">
                         Repay
                       </button>
+                    }
+                    @if ( personYouOwe.paypalEmail ) {
+                      <app-paypal-pay 
+                        [payeeEmail]="personYouOwe.paypalEmail" 
+                        [amt]="settlements[user.userName][personYouOwe.userName]*-1"
+                        [inviteToken]="expenditure.inviteToken" ></app-paypal-pay>
                     }
                   }
                 </div>
@@ -80,6 +87,6 @@
         }
       }
     }
-
+http://localhost:4200/success?paymentId=PAYID-M2J5A3I91T852692S049560M&token=EC-6DS48169SD3700247&PayerID=A6EDG96W5TGXG
   </ul>
 </div> -->

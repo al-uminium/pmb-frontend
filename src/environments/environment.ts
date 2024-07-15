@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  prodUrl: 'https://ppm-backend-production.up.railway.app'
+  apiUrl: 'https://ppm-backend-production.up.railway.app',
+  url: 'https://www.paymeback.wtf'
 };

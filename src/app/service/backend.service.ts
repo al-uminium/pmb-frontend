@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Expenditure } from '../classes/expenditure';
 import { Expense } from '../classes/expenses';
 import { User } from '../classes/user';
-import { environment as environmentDev } from '../../environments/environment.development';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,8 +11,8 @@ import { environment } from '../../environments/environment';
 })
 export class BackendService {
   private readonly http = inject(HttpClient);
-  private readonly postUrl = environment.production ? `${environment.prodUrl}/api/post` : `${environmentDev.devUrl}/api/post`
-  private readonly getUrl = environment.production ? `${environment.prodUrl}/api/get` : `${environmentDev.devUrl}/api/get`
+  private readonly postUrl = `${environment.apiUrl}/api/post` 
+  private readonly getUrl = `${environment.apiUrl}/api/get` 
 
   createExpenditure(expenditure: Expenditure): Observable<any> {
     return this.http.post<Expenditure>( `${this.postUrl}/initializeexpenditure`, expenditure)

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../classes/user';
-import { environment as environmentDev } from '../../environments/environment.development';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class PaypalService {
   private readonly http = inject(HttpClient)
-  private readonly paypalApi = environment.production ? `${environment.prodUrl}/api/paypal` : `${environmentDev.devUrl}/api/paypal`
+  private readonly paypalApi = `${environment.apiUrl}/api/paypal`
 
   getLinkPaypalAccount(): Observable<any> {
     return this.http.get(`${this.paypalApi}/link-account`);
@@ -20,11 +19,11 @@ export class PaypalService {
     return this.http.post(`${this.paypalApi}/link-account/code=${code}`, authUser)
   }
 
-  createOrder(amount: string, payeeEmail: string): Observable<any> {
-    return this.http.post(`${this.paypalApi}/create-order`, { amount, payeeEmail })
+  createOrder(amount: number, payeeEmail: string, inviteToken: string): Observable<any> {
+    return this.http.post(`${this.paypalApi}/create-order/${inviteToken}`, { amount, payeeEmail })
   }
 
-  captureOrder(orderId: string, payerId: string): Observable<any> {
-    return this.http.post(`${this.paypalApi}/capture-order`, { orderId, payerId })
+  captureOrder(paymentId: string, payerId: string, token: String): Observable<any> {
+    return this.http.post(`${this.paypalApi}/capture-order`, { paymentId, payerId, token })
   }
 }
