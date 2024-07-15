@@ -8,7 +8,7 @@
       <div class="flex gap-2 justify-between items-center">
         <div class="p-3 bg-slate-800 rounded-md">
           <button class="p-2 bg-slate-700 rounded-sm" type="button">Expenses</button>
-          <button class="p-2" type="button" (click)="handleRouteToBalance()">Balances</button>
+          <button class="p-2 hover:bg-slate-900 hover:text-slate-300 rounded-sm transition delay-100" type="button" (click)="handleRouteToBalance()">Balances</button>
         </div>
         <div class="flex gap-3">
           @if (authUser$ | async; as loginUser) {
@@ -23,17 +23,14 @@
               </button>
             }
           }
-          <div class="max-w-fit h-10 flex justify-center items-center px-2 bg-amber-500 rounded-md">
-            <button class="flex content-center" (click)="toggleUserModal()" type="button">
-              <div class="flex items-center">
-                <ng-icon name="heroUsers"></ng-icon>
-              </div>
-              <div class="pl-1">Change User</div>
-            </button>
-          </div>
+          <button class="flex content-center w-10 bg-amber-500 rounded-md" (click)="toggleUserModal()" type="button">
+            <div class="flex justify-center w-full items-center">
+              <ng-icon name="heroUsers"></ng-icon>
+            </div>
+          </button>
         </div>
       </div>
-      <div class="bg-slate-800 p-4 mb-10 rounded-md">
+      <div class="bg-slate-800 p-6 mb-10 rounded-md">
         <div class="flex gap-2 justify-between">
           <h3 class="text-2xl pb-5">Expenses</h3>
           <button 
@@ -62,12 +59,12 @@
           currency={{expenditure.defaultCurrency}}
           (createExpenseEvent)="createExpense($event)">
         </app-expense-modal>
-        <div (click)="toggleExpenseModal()" class="fixed inset-0 backdrop-blur-sm"></div>
+        <div (click)="toggleExpenseModal()" class="z-10 fixed inset-0 backdrop-blur-sm"></div>
       }
     } 
     @if (showUserModal) {
       <app-select-user-modal text="Choose who you're viewing the expenses as!" [users]="expenditure.users" (selectUserEvent)="selectUser($event)" ></app-select-user-modal>
-      <div class="fixed inset-0 backdrop-blur-sm" (click)="toggleUserModal()"></div>
+      <div class="fixed z-10 inset-0 backdrop-blur-sm" (click)="toggleUserModal()"></div>
     }
   }
 }
