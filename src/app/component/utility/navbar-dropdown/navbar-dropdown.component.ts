@@ -21,6 +21,7 @@ export class NavbarDropdownComponent {
   }
 
   handleLogOut(): void {
+    localStorage.removeItem("authUser");
     this.store.dispatch(logoutUser());
   }
 }
