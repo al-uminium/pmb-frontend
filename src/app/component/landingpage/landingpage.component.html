@@ -1,14 +1,32 @@
-<div class="grid grid-rows-2 h-screen">
-  <h1 class="text-4xl font-oswald content-center justify-self-center">PAY ME BACK</h1>
-  <div class="flex-1 flex flex-col gap-4 w-52 justify-self-center">
-    <button (click)="routeToCreateExpedition()" class="h-14 rounded-md font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500">
-      Create Expenditure
-    </button>
-    <button (click)="routeToLogin()" class="font-roboto bg-slate-900 h-14 rounded-md">
-      Login
-    </button>
-    <button (click)="routeToRegister()" class="font-roboto bg-slate-900 h-14 rounded-md">
-      Register
-    </button>
+<div class="snap-y snap-mandatory w-screen h-screen overflow-y-scroll">
+  <div class="grid grid-rows-2 h-screen w-screen snap-center">
+    <h1 class="text-4xl font-oswald content-center justify-self-center">PAY ME BACK</h1>
+    <div class="flex-1 flex flex-col gap-4 w-52 justify-self-center">
+      <button (click)="routeToCreateExpedition()" class="h-14 rounded-md font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500">
+        Create Expenditure
+      </button>
+      <button (click)="routeToLogin()" class="font-roboto bg-slate-900 h-14 rounded-md">
+        Login
+      </button>
+      <button (click)="routeToRegister()" class="font-roboto bg-slate-900 h-14 rounded-md">
+        Register
+      </button>
+    </div>
+  </div>
+  <div class="h-screen bg-slate-950 snap-center flex justify-center">
+    <div class="relative self-center max-w-screen-sm p-3 bg-gradient-to-r from-pink-500 from-10% to-yellow-500 rounded-md">
+      <div class="absolute blur-md w-full h-full bg-gradient-to-r from-pink-500 from-10% to-yellow-500 rounded-md left-0 top-0" ></div>
+      <div class="relative bg-slate-800 p-5 rounded-md flex flex-col gap-4">
+        <h3 class="text-3xl font-bold">What is <span class="font-oswald font-normal bg-gradient-to-r from-pink-500 from-10% to-yellow-500 text-transparent bg-clip-text">PAY ME BACK?</span></h3>
+        <div class="font-light text-slate-300">
+          Pay Me Back is an expense management app that allows you and your friends to record expenses (for example, a trip to Japan)
+          and let you know how much you owe and are owed!
+        </div>
+        <div class="font-light text-slate-300">
+          <span class="font-normal">Registering is completely optional</span>, just be sure to record down the URL! However, if you do opt to register, you will then be
+          able to link a Paypal account if you so wish, so that other users can pay you back through Paypal. 
+        </div>
+      </div>
+    </div>
   </div>
 </div>
