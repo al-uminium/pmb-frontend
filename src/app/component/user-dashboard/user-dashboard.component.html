@@ -11,11 +11,11 @@
       @if (expenditures.length > 0) {
         <ul>
         @for (expenditure of expenditures; track $index) {
-                <li>
-                  <a [href]="generateUrlForExpenditure(expenditure)">{{ expenditure.expenditureName }}</a>
-                </li>
-              }
-            </ul>
+            <li>
+              <a class="font-light text-slate-200" [href]="generateUrlForExpenditure(expenditure)">{{ expenditure.expenditureName }}</a>
+            </li>
+          }
+        </ul>
           } @else {
             <div class="font-light">
               Looks like you don't have an expenditure yet.
@@ -26,7 +26,9 @@
       </div>
     <div class="flex justify-between">
       <a class="p-2 flex justify-center items-center font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-fit h-10 rounded-md" href="/expenditure/create">Create Expenditure</a>
-      <app-paypal-login></app-paypal-login>
+      <div class="self-center">
+        <app-paypal-login></app-paypal-login>
+      </div>
     </div>
   }
 }

@@ -89,10 +89,6 @@ export class BalanceComponent implements OnInit {
     });
   }
 
-  userHasPaypal(user: User): boolean {
-    return true
-  }
-
   handleRouteToExpense() {
     this.router.navigate([`/expenditure/${this.inviteToken}`]);
   }
