@@ -1,0 +1,17 @@
+<div class="h-10 mb-5 absolute w-full flex justify-between bg-slate-800">
+  <a class="font-oswald my-1 text-lg pr-2 flex content-center border-r border-r-slate-400" href="/">
+    <div class="px-2 text-slate-200">
+      PAY ME BACK   
+    </div>
+    <div>
+      <ng-icon name="heroHome"></ng-icon>
+    </div>
+  </a>
+  @if (authUser$ | async; as authUser) {
+    <div class="flex items-center my-1">
+      <div class="px-2 cursor-pointer">
+        <app-navbar-dropdown></app-navbar-dropdown>
+      </div>
+    </div>
+  }
+</div>
