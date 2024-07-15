@@ -1,20 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BackendService } from '../../service/backend.service';
-import { Expenditure } from '../../classes/expenditure';
-import { User } from '../../classes/user';
+import { BackendService } from '../../../service/backend.service';
+import { Expenditure } from '../../../classes/expenditure';
+import { User } from '../../../classes/user';
 import { ExpenseTableComponent } from '../expense-table/expense-table.component';
 import { SelectUserModalComponent } from '../select-user-modal/select-user-modal.component';
-import { Expense } from '../../classes/expenses';
+import { Expense } from '../../../classes/expenses';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroLink, heroPlus, heroShare, heroUsers } from '@ng-icons/heroicons/outline';
 import { select, Store, StoreModule } from '@ngrx/store';
-import { loginUser, selectUser } from '../../state/user.actions';
+import { loginUser, selectUser } from '../../../state/user.actions';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { selectAuthUser, selectSelectedUser } from '../../state/user.selectors';
-import { UtilService } from '../../service/util.service';
+import { selectAuthUser, selectSelectedUser } from '../../../state/user.selectors';
+import { UtilService } from '../../../service/util.service';
 
 @Component({
   selector: 'app-dashboard',

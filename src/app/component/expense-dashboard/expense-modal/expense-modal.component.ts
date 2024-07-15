@@ -3,10 +3,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 import { RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheck, heroUserPlus, heroXMark } from '@ng-icons/heroicons/outline';
-import { User } from '../../classes/user';
-import { UtilService } from '../../service/util.service';
-import { Expense } from '../../classes/expenses';
-import { DropdownComponent } from '../utility/dropdown/dropdown.component';
+import { User } from '../../../classes/user';
+import { UtilService } from '../../../service/util.service';
+import { Expense } from '../../../classes/expenses';
+import { DropdownComponent } from '../../utility/dropdown/dropdown.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

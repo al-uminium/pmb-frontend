@@ -1,16 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BackendService } from '../../service/backend.service';
-import { User } from '../../classes/user';
+import { BackendService } from '../../../service/backend.service';
+import { User } from '../../../classes/user';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Expense } from '../../classes/expenses';
+import { Expense } from '../../../classes/expenses';
 import { Observable } from 'rxjs';
-import { Expenditure } from '../../classes/expenditure';
+import { Expenditure } from '../../../classes/expenditure';
 import { CommonModule } from '@angular/common';
 import { select, Store, StoreModule } from '@ngrx/store';
-import { selectSelectedUser } from '../../state/user.selectors';
-import { ProfilePictureComponent } from '../utility/profile-picture/profile-picture.component';
-import { PaypalPayComponent } from '../paypal/paypal-pay/paypal-pay.component';
-import { PaypalService } from '../../service/paypal.service';
+import { selectSelectedUser } from '../../../state/user.selectors';
+import { ProfilePictureComponent } from '../../utility/profile-picture/profile-picture.component';
+import { PaypalPayComponent } from '../../paypal/paypal-pay/paypal-pay.component';
+import { PaypalService } from '../../../service/paypal.service';
 
 @Component({
   selector: 'app-balance',

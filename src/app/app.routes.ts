@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { LandingpageComponent } from './component/landingpage/landingpage.component';
 import { ExpenditureFormComponent } from './component/expenditure-form/expenditure-form.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { BalanceComponent } from './component/balance/balance.component';
+import { DashboardComponent } from './component/expense-dashboard/dashboard/dashboard.component';
+import { BalanceComponent } from './component/expense-dashboard/balance/balance.component';
 import { SignupFormComponent } from './component/signup-form/signup-form.component';
 import { LoginComponent } from './component/login/login.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
