@@ -42,10 +42,10 @@ export class BalanceComponent implements OnInit {
   ngOnInit(): void {
     this.actRoute.paramMap.subscribe((param) => {
       this.inviteToken = param.get('id') as string;
+      console.log(this.inviteToken);
       this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
       this.settlements$ = this.bkSvc.getPaymentsToSettle(this.inviteToken);
       this.selectedUser$ = this.store.pipe(select(selectSelectedUser));
-
     });
 
     this.actRoute.queryParams.subscribe((query) => {

@@ -6,7 +6,6 @@ import { BalanceComponent } from './component/balance/balance.component';
 import { SignupFormComponent } from './component/signup-form/signup-form.component';
 import { LoginComponent } from './component/login/login.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
-import { PaypalCallbackComponent } from './component/paypal/paypal-callback/paypal-callback.component';
 
 export const routes: Routes = [
   {
@@ -35,10 +34,6 @@ export const routes: Routes = [
   {
     path: 'user',
     component: UserDashboardComponent
-  },
-  {
-    path: 'paypal/callback/',
-    component: PaypalCallbackComponent
   },
   {
     path: '**', 
