@@ -8,10 +8,13 @@
     </div>
   </a>
   @if (authUser$ | async; as authUser) {
-    <div class="flex items-center my-1">
-      <div class="px-2 cursor-pointer">
-        <app-navbar-dropdown></app-navbar-dropdown>
+    @if (!authUser) {}
+    @else {
+      <div class="flex items-center my-1">
+        <div class="px-2 cursor-pointer">
+          <app-navbar-dropdown></app-navbar-dropdown>
+        </div>
       </div>
-    </div>
+    }
   }
 </div>
