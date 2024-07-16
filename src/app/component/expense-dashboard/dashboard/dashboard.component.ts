@@ -102,6 +102,7 @@ export class DashboardComponent implements OnInit {
       next: () => {
         console.log(expense.expenseSplit);
         this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken)
+        this.expenditure$.subscribe((exp) => console.log(exp))
         this.toggleExpenseModal()
       }
     })

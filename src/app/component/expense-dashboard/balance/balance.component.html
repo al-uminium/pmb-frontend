@@ -38,7 +38,7 @@
                 <div>
                   {{ user.userName }} owes {{ personUserOwes.userName }} {{settlements[user.userName][personUserOwes.userName]*-1}} {{ expenditure.defaultCurrency }}
                 </div>
-                <div class="">
+                <div>
                   @if (selectedUser$ | async; as selectedUser) {
                     @if (user.userId == selectedUser.userId) {
                       <button 

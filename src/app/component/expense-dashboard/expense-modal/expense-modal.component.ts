@@ -85,11 +85,13 @@ export class ExpenseModalComponent implements OnInit{
     const expenseName = this.form.get('expenseName')?.value;
     const totalCost = this.form.get('totalCost')?.value;
     const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList);
+    console.log("Printing total cost: " + totalCost);
 
     if (this.isSplitEven) {
       const expenseSplit = this.utilSvc.getExpenseSplitIfSplitEven(totalCost, this.costIncurred, this.usersList);
       console.log(expenseSplit);
       const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
+      console.log(expense);
       this.createExpenseEvent.emit(expense);
     } else {
       const expenseSplit = this.utilSvc.getExpenseSplitFromFormGroup(this.costIncurred, this.usersList);

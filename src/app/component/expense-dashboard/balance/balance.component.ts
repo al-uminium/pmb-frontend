@@ -95,10 +95,12 @@ export class BalanceComponent implements OnInit {
 
   checkIfAllBalanceNeutral(users: User[]): boolean {
     let totalBalance = 0;
-    users.forEach((user) => {
+    users.forEach((user) => {;
       totalBalance += Math.abs(user.balance);
+      console.log(totalBalance);
     });
-
+    // to deal with 0.01 edge cases 
+    totalBalance = Math.round(totalBalance);
     return totalBalance == 0;
   }
 }

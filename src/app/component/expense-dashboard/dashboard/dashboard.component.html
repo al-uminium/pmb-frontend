@@ -8,7 +8,7 @@
       <div class="flex gap-2 justify-between items-center">
         <div class="p-3 bg-slate-800 rounded-md">
           <button class="p-2 bg-slate-700 rounded-sm" type="button">Expenses</button>
-          <button class="p-2 hover:bg-slate-900 hover:text-slate-300 rounded-sm transition delay-100" type="button" (click)="handleRouteToBalance()">Balances</button>
+          <button class="p-2 hover:bg-slate-900 hover:text-slate-300 rounded-sm transition" type="button" (click)="handleRouteToBalance()">Balances</button>
         </div>
         <div class="flex gap-3">
           @if (authUser$ | async; as loginUser) {
@@ -23,7 +23,7 @@
               </button>
             }
           }
-          <button class="flex content-center w-10 bg-amber-500 rounded-md" (click)="toggleUserModal()" type="button">
+          <button class="flex content-center w-10 h-10 bg-amber-500 rounded-md" (click)="toggleUserModal()" type="button">
             <div class="flex justify-center w-full items-center">
               <ng-icon name="heroUsers"></ng-icon>
             </div>
@@ -31,8 +31,8 @@
         </div>
       </div>
       <div class="bg-slate-800 p-6 mb-10 rounded-md">
-        <div class="flex gap-2 justify-between">
-          <h3 class="text-2xl pb-5">Expenses</h3>
+        <div class="flex gap-2 justify-between items-center pb-5 border-b border-b-slate-600">
+          <h3 class="text-2xl">Expenses</h3>
           <button 
             type="button" 
             class="flex justify-center items-center font-roboto font-bold bg-gradient-to-r from-pink-500 from-10% to-yellow-500 w-10 h-10 rounded-md" 
@@ -41,7 +41,7 @@
           </button>
         </div>
         @if (expenditure.expenses.length > 0) {
-          <div>
+          <div class="pt-3">
             <app-expense-table 
               [expenses]="expenditure.expenses" 
               [currency]="expenditure.defaultCurrency">

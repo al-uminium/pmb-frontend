@@ -32,10 +32,12 @@ export class UtilService {
     return expenseSplit;
   }
 
+  // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+  // decided to pass it to backend to round off instead
   getExpenseSplitIfSplitEven(total: number, arr: FormGroup[], users: User[]) {
     const expenseSplit = {} as { [key: string]: number };
     const usersInvolved = this.getUsersInvolved(arr, users);
-    const splitAmt = Number.parseFloat((total / usersInvolved.length).toFixed(3));
+    const splitAmt = (total / usersInvolved.length);
 
     usersInvolved.forEach(user => {
       expenseSplit[user.userName] = splitAmt;
