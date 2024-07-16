@@ -61,9 +61,6 @@ export class ExpenseModalComponent implements OnInit{
   }
 
   toggle(group: FormGroup) {
-    console.log(group.get('checked')?.value);
-    console.log(group.get('cost')?.value);
-
     if (!group.get('checked')?.value) {
       group.get('cost')?.enable()
     } else {

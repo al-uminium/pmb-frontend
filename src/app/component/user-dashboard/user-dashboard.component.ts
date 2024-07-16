@@ -44,17 +44,14 @@ export class UserDashboardComponent implements OnInit {
     this.onPageLoad();
     this.authUser$ = this.store.pipe(select(selectAuthUser));
     this.authUser$.subscribe((user) => {
-      console.log(user);
       this.authUser = user as User;
     });
     this.actRoute.queryParamMap.subscribe((params) => {
       const authCode = params?.get('code');
       if (authCode && this.authUser) {
-        console.log(authCode);
         this.paypalSvc
           .linkPaypalAccountCallback(authCode, this.authUser)
           .subscribe((data) => {
-            console.log(data);
             this.router.navigate(['user']);
           });
       } else {

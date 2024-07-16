@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit{
     user.pw = this.password?.value;
     this.bkSvc.postLogin(user).subscribe((user) => {
       if (user.userId) {
-        console.log(user);
         this.store.dispatch(loginUser({ user: user }))
         localStorage.setItem('authUser', JSON.stringify({ user }));
         localStorage.setItem('isLoggedIn', JSON.stringify(true));

@@ -89,10 +89,8 @@ export class DashboardComponent implements OnInit {
   }
 
   linkUser(selectedUser: User, loginUser: User): void {
-    console.log(selectedUser);
-    console.log(loginUser);
     this.bkSvc.updateLinkedUser(loginUser, selectedUser).subscribe(() => {
-      console.log("wee");
+      console.log("Linking user...");
     });
     this.toggleLinkModal()
   }
@@ -100,7 +98,6 @@ export class DashboardComponent implements OnInit {
   createExpense(expense: Expense) {
     this.bkSvc.createExpense(expense, this.inviteToken).subscribe({
       next: () => {
-        console.log(expense.expenseSplit);
         this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken)
         this.expenditure$.subscribe((exp) => console.log(exp))
         this.toggleExpenseModal()

@@ -51,8 +51,6 @@ export class BalanceComponent implements OnInit {
       this.paymentId = query['paymentId'] as string;
       this.token = query['token'] as string;
       this.payerId = query['PayerID'] as string;
-
-      console.log(this.paymentId, this.token, this.payerId);
       if (this.paymentId && this.payerId && this.token) {
         this.paypalSvc.captureOrder(this.paymentId, this.payerId, this.token).subscribe((response: any) => {
           if (response.status === 'approved') {
