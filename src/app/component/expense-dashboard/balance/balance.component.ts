@@ -42,7 +42,6 @@ export class BalanceComponent implements OnInit {
   ngOnInit(): void {
     this.actRoute.paramMap.subscribe((param) => {
       this.inviteToken = param.get('id') as string;
-      console.log(this.inviteToken);
       this.expenditure$ = this.bkSvc.getExpenditureDetails(this.inviteToken);
       this.settlements$ = this.bkSvc.getPaymentsToSettle(this.inviteToken);
       this.selectedUser$ = this.store.pipe(select(selectSelectedUser));
@@ -55,7 +54,6 @@ export class BalanceComponent implements OnInit {
 
       console.log(this.paymentId, this.token, this.payerId);
       if (this.paymentId && this.payerId && this.token) {
-        console.log("Payment triggered");
         this.paypalSvc.captureOrder(this.paymentId, this.payerId, this.token).subscribe((response: any) => {
           if (response.status === 'approved') {
             alert(`Payment Successful!`);
@@ -97,7 +95,6 @@ export class BalanceComponent implements OnInit {
     let totalBalance = 0;
     users.forEach((user) => {;
       totalBalance += Math.abs(user.balance);
-      console.log(totalBalance);
     });
     // to deal with 0.01 edge cases 
     totalBalance = Math.round(totalBalance);

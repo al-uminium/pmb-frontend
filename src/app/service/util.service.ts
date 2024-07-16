@@ -32,6 +32,17 @@ export class UtilService {
     return expenseSplit;
   }
 
+  checkIfExpenseSplitIsValid(arr: FormGroup[]): boolean {
+    let isValid = true;
+    arr.forEach(control => {
+      const val = control.get('cost')?.value
+      if ((typeof val == 'object')){
+        isValid = false;
+      }      
+    })
+    return isValid;
+  }
+
   // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
   // decided to pass it to backend to round off instead
   getExpenseSplitIfSplitEven(total: number, arr: FormGroup[], users: User[]) {

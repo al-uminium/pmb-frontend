@@ -54,11 +54,15 @@
                         class="bg-slate-700 w-24 py-1 pl-2 rounded-sm disabled:bg-slate-900" 
                         type="number"
                         [formControlName]="'cost'">
+                        
                     </div>
                   }
                 </li>
               }
             </ul>
+            @if (!isCostIncurredValid) {
+              <div class="text-rose-500 font-light text-sm">Numbers only, please!</div>
+            }
             <div class="bg-slate-700 flex gap-2 max-w-fit p-2 my-3 rounded-sm">
               <button 
                 type="button" 

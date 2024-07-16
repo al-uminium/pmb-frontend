@@ -38,6 +38,14 @@ export class ExpenditureFormComponent implements OnInit{
     return this.form.get('usernames') as FormArray;
   }
 
+  get expenditureName() {
+    return this.form.get('expenditureName') as FormArray;
+  }
+
+  get selectedCurrency() {
+    return this.form.get('selectedCurrency') as FormArray;
+  }
+
   addUser() {
     this.usernames.push(this.fb.control('', Validators.required));
   }
@@ -51,9 +59,9 @@ export class ExpenditureFormComponent implements OnInit{
   }
 
   onSubmit(): void {
-    const expenditureName = this.form.get('expenditureName')?.value;
+    const expenditureName = this.expenditureName?.value;
     const userArray = this.utilSvc.getUsersFromForm(this.usernames);
-    const currency = this.form.get('selectedCurrency')?.value;
+    const currency = this.selectedCurrency?.value;
     const inviteToken = this.utilSvc.generateSecureRandomString(25);
 
     this.bkendSvc.createExpenditure(new Expenditure(expenditureName, userArray, currency, inviteToken)).subscribe({

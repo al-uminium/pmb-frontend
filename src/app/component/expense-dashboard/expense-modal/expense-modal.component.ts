@@ -39,6 +39,7 @@ export class ExpenseModalComponent implements OnInit{
   createExpenseEvent: EventEmitter<Expense> = new EventEmitter<Expense>
 
   isSplitEven: boolean = true;
+  isCostIncurredValid: boolean = true;
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -75,8 +76,8 @@ export class ExpenseModalComponent implements OnInit{
   populateCostIncurredArray(): void {
     this.usersList.forEach(() => {
       this.costIncurred.push(this.fb.group({
-        checked: [true],
-        cost: [0, Validators.min(0)],
+        checked: this.fb.control<boolean>(true),
+        cost: this.fb.control<number>(0, Validators.min(0)),
       }))
     });
   }
@@ -85,18 +86,17 @@ export class ExpenseModalComponent implements OnInit{
     const expenseName = this.form.get('expenseName')?.value;
     const totalCost = this.form.get('totalCost')?.value;
     const usersInvolved = this.utilSvc.getUsersInvolved(this.costIncurred, this.usersList);
-    console.log("Printing total cost: " + totalCost);
-
-    if (this.isSplitEven) {
-      const expenseSplit = this.utilSvc.getExpenseSplitIfSplitEven(totalCost, this.costIncurred, this.usersList);
-      console.log(expenseSplit);
-      const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
-      console.log(expense);
-      this.createExpenseEvent.emit(expense);
-    } else {
-      const expenseSplit = this.utilSvc.getExpenseSplitFromFormGroup(this.costIncurred, this.usersList);
-      const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
-      this.createExpenseEvent.emit(expense);
+    this.isCostIncurredValid = this.utilSvc.checkIfExpenseSplitIsValid(this.costIncurred);
+    if (this.isCostIncurredValid) {
+      if (this.isSplitEven) {
+        const expenseSplit = this.utilSvc.getExpenseSplitIfSplitEven(totalCost, this.costIncurred, this.usersList);
+        const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
+        this.createExpenseEvent.emit(expense);
+      } else {
+        const expenseSplit = this.utilSvc.getExpenseSplitFromFormGroup(this.costIncurred, this.usersList);
+        const expense = new Expense(expenseName, this.selectedUser, totalCost, expenseSplit, usersInvolved, "", "");
+        this.createExpenseEvent.emit(expense);
+      }
     }
 
   }
